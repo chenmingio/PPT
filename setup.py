@@ -1,8 +1,13 @@
-from pymongo import MongoClient
-
+# from pymongo import MongoClient
+import pymongo
 # connect to db
-client = MongoClient()
+# client = MongoClient()
+# db = client.PPT
+
+
+client = pymongo.MongoClient("mongodb+srv://chenming123:chenming123@cmcluster-s42od.mongodb.net/test?retryWrites=true")
 db = client.PPT
+
 
 # connect to collection project
 project = db.project
@@ -17,7 +22,6 @@ dict_userone = {
 }
 
 dict_project = {
-    "_id" : ObjectId("5c8920f2f4a2c0c79c52e661"),
     "project_no" : "qwert",
     "project_name" : "h",
     "production_line" : "h",

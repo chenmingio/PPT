@@ -89,7 +89,7 @@ def signin():
         else:
             return 'no such user'
     else:
-        return template('signin')
+        return template('tpl/signin')
 
 @route('/')
 @route('/main')
@@ -100,7 +100,7 @@ def main():
         userGroup = userDoc['user_group']
         userName = userDoc['user_name']
 
-        return template('main', user_name=userName, user_group=userGroup)
+        return template('tpl/main', user_name=userName, user_group=userGroup)
     else:
         redirect("/signin")
 
@@ -120,7 +120,7 @@ def project(project_id):
         if project_id == 'new':
             fetchSuggestion= fetch_project('project_no', 'qwert')
             fetchSuggestion["toggle"] = 'NA'
-            return template('project', **fetchSuggestion)
+            return template('tpl/project', **fetchSuggestion)
         elif project_id == 'save':
             projectInfo = request.forms
             addResult = add_project(projectInfo)
@@ -128,7 +128,7 @@ def project(project_id):
         else:
             fetchResult = fetch_project('project_no', project_id)
             fetchResult["toggle"] = "readonly"
-            return template('project', **fetchResult)
+            return template('tpl/project', **fetchResult)
     else:
         redirect("/main")
 
@@ -140,7 +140,9 @@ def quotation():
         print(str(request_dict))
         return "success"
     else:
-        return template('CBDInjection')
+        return template('tpl/CBDInjection')
 
-# run(host='localhost', port=8080, debug=True, reloader=True)
-run(server='paste', host='0.0.0.0', port=80)
+if __name__ == "__main__":
+    run(host='localhost', port=8080)
+
+app = bottle.default_app()
