@@ -93,7 +93,7 @@ def signin():
         reqUserName = request.forms['user_name']
         reqPassword = request.forms['password']
 
-        userDoc = fetch_user("user_name", reqUserName)
+        userDoc = fetch_document("user", "user_name", reqUserName)
         if userDoc:
             if reqPassword == userDoc['password']:
                 results = create_session(reqUserName)
@@ -132,7 +132,7 @@ def project(project_id):
 
     if userDoc['user_group'] in ['PUR', 'PJM']:
         if project_id == 'new':
-            fetchSuggestion= fetch_project('project_no', 'qwert')
+            fetchSuggestion= fetch_document('project', 'project_no', 'qwert')
             fetchSuggestion["toggle"] = 'NA'
             return template('tpl/project', **fetchSuggestion)
         elif project_id == 'save':
@@ -140,7 +140,7 @@ def project(project_id):
             addResult = add_project(projectInfo)
             return "added"
         else:
-            fetchResult = fetch_project('project_no', project_id)
+            fetchResult = fetch_document('project', 'project_no', project_id)
             fetchResult["toggle"] = "readonly"
             return template('tpl/project', **fetchResult)
     else:
