@@ -143,6 +143,6 @@ def quotation():
         return template('tpl/CBDInjection')
 
 if __name__ == "__main__":
-    run(host='localhost', port=8080)
+    run(host='localhost', port=8080, debug=True, reloader=True)
 
 app = bottle.default_app()

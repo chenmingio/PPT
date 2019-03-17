@@ -1,4 +1,4 @@
-# PPT开发计划
+# PPT开发日志
 
 ## MVP
 
@@ -14,7 +14,7 @@ quotation = documents
 ### 用shell输入到mongodb里
 * 已经用robomongo搞定。[MongoDB Insert Document](https://www.tutorialspoint.com/mongodb/mongodb_insert_document.htm)
 	* 注意mongodb支持的几个type [MongoDB Data Types - 16 Various Data Types in MongoDB - DataFlair](https://data-flair.training/blogs/mongodb-data-types/)
-	* 以及最后一个item不要加逗号
+	* 以及输入中最后一个item不要加逗号
 
 ### 用python脚本文件读写mongodb里的cbd数据
 [Tutorial — PyMongo 3.7.2 documentation](https://api.mongodb.com/python/current/tutorial.html)
@@ -29,24 +29,36 @@ quotation = documents
 
 ### 在timelogger项目里实现user seesion control功能
 
+done
 
 ### 使用bottle结合pymongo
 
+done
 
 
 ### tpl的简单草稿
 
+done
 ### 实现简单的read url（输入？得到对应的json table）
+
+done
 
 ### 实现上传url
 
+done
+
 ### 实现修改url
+
+done
 #### 修改页面的设计
 
-
+done
 
 ### 从localhost部署到VPS上
 
+done
+
+剩下使用supervisor的任务
 
 ## 第一轮优化
 
