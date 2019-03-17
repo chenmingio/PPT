@@ -29,7 +29,7 @@
             <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/project/new">New Project</a>
+            <a class="nav-link" href="/project/create/new">New Project</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Donate</a>

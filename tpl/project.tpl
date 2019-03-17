@@ -66,36 +66,43 @@
 
     <div class="form-row">
 
-<!-- python code for toggling the mode -->
+<!-- python code for toggling the readonly status -->
 
+% formToggle = None
 
-    <h1>{{'status_bar'}}</h1>
+% if is_read:
+% formToggle = 'readonly'
+% btnText = 'Edit'
+% status_bar = 'Project Info read-only. Click edit to update.'
+% end
+
+    <h1>{{status_bar}}</h1>
         <legend>Basic Info</legend>
 
         <div class="form-group col-md-4">
       <label for="project_no">Project Number</label>
-      <input type="text" class="form-control" name="project_no" placeholder={{project_no}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="project_no" placeholder={{project_no}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-4">
       <label for="project_name">Project Name</label>
-      <input type="text" class="form-control" name="project_name" placeholder={{project_name}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="project_name" placeholder={{project_name}} {{formToggle}}>
         </div>
 
 
         <div class="form-group col-md-4">
       <label for="production_line">Production Line</label>
-      <input type="text" class="form-control" name="production_line" placeholder={{production_line}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="production_line" placeholder={{production_line}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-4">
       <label for="fg_no">FG Number</label>
-      <input type="text" class="form-control" name="fg_no" placeholder={{fg_no}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="fg_no" placeholder={{fg_no}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-4">
       <label for="product_cycletime">Product Cycle Time</label>
-      <input type="text" class="form-control" name="product_cycletime" placeholder={{product_cycletime}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="product_cycletime" placeholder={{product_cycletime}} {{formToggle}}>
         </div>
 
     </div>
@@ -107,37 +114,37 @@
 
         <div class="form-group col-md-3">
       <label for="runrate_hella">Run&Rate @Hella</label>
-      <input type="text" class="form-control" name="runrate_hella" placeholder={{runrate_hella}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="runrate_hella" placeholder={{runrate_hella}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="pv_hella">PV @Hella</label>
-      <input type="text" class="form-control" name="pv_hella" placeholder={{pv_hella}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="pv_hella" placeholder={{pv_hella}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="sop_hella">SOP @Hella</label>
-      <input type="text" class="form-control" name="sop_hella" placeholder={{sop_hella}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="sop_hella" placeholder={{sop_hella}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="sop_customer">SOP @Customer</label>
-      <input type="text" class="form-control" name="sop_customer" placeholder={{sop_customer}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="sop_customer" placeholder={{sop_customer}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="t3_date">T3 Sample Request Date</label>
-      <input type="text" class="form-control" name="t3_date" placeholder={{t3_date}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="t3_date" placeholder={{t3_date}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="t4_date">T4 Sample Request Date</label>
-      <input type="text" class="form-control" name="t4_date" placeholder={{t4_date}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="t4_date" placeholder={{t4_date}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="pv_supplier">PV Sample Request Date</label>
-      <input type="text" class="form-control" name="pv_supplier" placeholder={{pv_supplier}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="pv_supplier" placeholder={{pv_supplier}} {{formToggle}}>
         </div>
 
     </div>
@@ -149,37 +156,37 @@
 
         <div class="form-group col-md-3">
           <label for="purchasing">Purchasing</label>
-      <input type="text" class="form-control" name="purchasing" placeholder={{purchasing}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="purchasing" placeholder={{purchasing}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="pjm">Project Management</label>
-      <input type="text" class="form-control" name="pjm" placeholder={{pjm}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="pjm" placeholder={{pjm}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="md">Mechanical Design</label>
-      <input type="text" class="form-control" name="md" placeholder={{md}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="md" placeholder={{md}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="sqa_ttm">SQA-TtM</label>
-      <input type="text" class="form-control" name="sqa_ttm" placeholder={{sqa_ttm}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="sqa_ttm" placeholder={{sqa_ttm}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="controlling">Controlling</label>
-      <input type="text" class="form-control" name="controlling" placeholder={{controlling}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="controlling" placeholder={{controlling}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="me">ME</label>
-      <input type="text" class="form-control" name="me" placeholder={{me}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="me" placeholder={{me}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-3">
       <label for="planner">Material Planner</label>
-      <input type="text" class="form-control" name="planner" placeholder={{planner}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="planner" placeholder={{planner}} {{formToggle}}>
         </div>
 
     </div>
@@ -190,52 +197,52 @@
         <legend>Volume in 1,000</legend>
         <div class="form-group col-md-1">
       <label for="year1_volume">Year-1 Volume</label>
-      <input type="text" class="form-control" name="year1_volume" placeholder={{year1_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year1_volume" placeholder={{year1_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year2_volume">Year-2 Volume</label>
-      <input type="text" class="form-control" name="year2_volume" placeholder={{year2_volume}}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year2_volume" placeholder={{year2_volume}}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year3_volume">Year-3 Volume</label>
-      <input type="text" class="form-control" name="year3_volume" placeholder={{year3_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year3_volume" placeholder={{year3_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year4_volume">Year-4 Volume</label>
-      <input type="text" class="form-control" name="year4_volume" placeholder={{year4_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year4_volume" placeholder={{year4_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year5_volume">Year-5 Volume</label>
-      <input type="text" class="form-control" name="year5_volume" placeholder={{year5_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year5_volume" placeholder={{year5_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year6_volume">Year-6 Volume</label>
-      <input type="text" class="form-control" name="year6_volume" placeholder={{year6_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year6_volume" placeholder={{year6_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year7_volume">Year-7 Volume</label>
-      <input type="text" class="form-control" name="year7_volume" placeholder={{year7_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year7_volume" placeholder={{year7_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year8_volume">Year-8 Volume</label>
-      <input type="text" class="form-control" name="year8_volume" placeholder={{year8_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year8_volume" placeholder={{year8_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year9_volume">Year-9 Volume</label>
-      <input type="text" class="form-control" name="year9_volume" placeholder={{year9_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year9_volume" placeholder={{year9_volume}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year10_volume">Year-10 Volume</label>
-      <input type="text" class="form-control" name="year10_volume" placeholder={{year10_volume}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="year10_volume" placeholder={{year10_volume}} {{formToggle}}>
         </div>
  </div>
 
@@ -247,27 +254,27 @@
 
         <div class="form-group col-md-2">
       <label for="part1_pn">Part Number</label>
-      <input type="text" class="form-control" name="part1_pn" placeholder={{part1_pn}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part1_pn" placeholder={{part1_pn}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part1_description">Part Description</label>
-      <input type="text" class="form-control" name="part1_description" placeholder={{part1_description}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part1_description" placeholder={{part1_description}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part1_usage">Part Usage</label>
-      <input type="text" class="form-control" name="part1_usage" placeholder={{part1_usage}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part1_usage" placeholder={{part1_usage}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part1_target_price">Target Price</label>
-      <input type="text" class="form-control" name="part1_target_price" placeholder={{part1_target_price}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part1_target_price" placeholder={{part1_target_price}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part1_target_invest">Target Investment</label>
-      <input type="text" class="form-control" name="part1_target_invest" placeholder={{part1_target_invest}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part1_target_invest" placeholder={{part1_target_invest}} {{formToggle}}>
         </div>
 
     </div>
@@ -278,27 +285,27 @@
 
         <div class="form-group col-md-2">
       <label for="part2_pn">Part Number</label>
-      <input type="text" class="form-control" name="part2_pn" placeholder={{part2_pn}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part2_pn" placeholder={{part2_pn}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part2_description">Part Description</label>
-      <input type="text" class="form-control" name="part2_description" placeholder={{part2_description}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part2_description" placeholder={{part2_description}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part2_usage">Part Usage</label>
-      <input type="text" class="form-control" name="part2_usage" placeholder={{part2_usage}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part2_usage" placeholder={{part2_usage}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part2_target_price">Target Price</label>
-      <input type="text" class="form-control" name="part2_target_price" placeholder={{part2_target_price}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part2_target_price" placeholder={{part2_target_price}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part2_target_invest">Target Investment</label>
-      <input type="text" class="form-control" name="part2_target_invest" placeholder={{part2_target_invest}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part2_target_invest" placeholder={{part2_target_invest}} {{formToggle}}>
         </div>
 
     </div>
@@ -308,27 +315,27 @@
 
         <div class="form-group col-md-2">
       <label for="part3_pn">Part Number</label>
-      <input type="text" class="form-control" name="part3_pn" placeholder={{part3_pn}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part3_pn" placeholder={{part3_pn}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part3_description">Part Description</label>
-      <input type="text" class="form-control" name="part3_description" placeholder={{part3_description}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part3_description" placeholder={{part3_description}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part3_usage">Part Usage</label>
-      <input type="text" class="form-control" name="part3_usage" placeholder={{part3_usage}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part3_usage" placeholder={{part3_usage}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part3_target_price">Target Price</label>
-      <input type="text" class="form-control" name="part3_target_price" placeholder={{part3_target_price}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part3_target_price" placeholder={{part3_target_price}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part3_target_invest">Target Investment</label>
-      <input type="text" class="form-control" name="part3_target_invest" placeholder={{part3_target_invest}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part3_target_invest" placeholder={{part3_target_invest}} {{formToggle}}>
         </div>
 
     </div>
@@ -338,27 +345,27 @@
 
         <div class="form-group col-md-2">
       <label for="part4_pn">Part Number</label>
-      <input type="text" class="form-control" name="part4_pn" placeholder={{part4_pn}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part4_pn" placeholder={{part4_pn}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part4_description">Part Description</label>
-      <input type="text" class="form-control" name="part4_description" placeholder={{part4_description}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part4_description" placeholder={{part4_description}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part4_usage">Part Usage</label>
-      <input type="text" class="form-control" name="part4_usage" placeholder={{part4_usage}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part4_usage" placeholder={{part4_usage}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part4_target_price">Target Price</label>
-      <input type="text" class="form-control" name="part4_target_price" placeholder={{part4_target_price}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part4_target_price" placeholder={{part4_target_price}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part4_target_invest">Target Investment</label>
-      <input type="text" class="form-control" name="part4_target_invest" placeholder={{part4_target_invest}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part4_target_invest" placeholder={{part4_target_invest}} {{formToggle}}>
         </div>
 
     </div>
@@ -368,34 +375,34 @@
 
         <div class="form-group col-md-2">
       <label for="part5_pn">Part Number</label>
-      <input type="text" class="form-control" name="part5_pn" placeholder={{part5_pn}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part5_pn" placeholder={{part5_pn}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part5_description">Part Description</label>
-      <input type="text" class="form-control" name="part5_description" placeholder={{part5_description}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part5_description" placeholder={{part5_description}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part5_usage">Part Usage</label>
-      <input type="text" class="form-control" name="part5_usage" placeholder={{part5_usage}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part5_usage" placeholder={{part5_usage}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part5_target_price">Target Price</label>
-      <input type="text" class="form-control" name="part5_target_price" placeholder={{part5_target_price}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part5_target_price" placeholder={{part5_target_price}} {{formToggle}}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="part5_target_invest">Target Investment</label>
-      <input type="text" class="form-control" name="part5_target_invest" placeholder={{part5_target_invest}} {{readonly if defined('readonly') else None}}>
+      <input type="text" class="form-control" name="part5_target_invest" placeholder={{part5_target_invest}} {{formToggle}}>
         </div>
 
     </div>
 
  <hr>
 
- <input class="btn btn-primary btn-lg btn-block" type="submit" name="save" value="Save">
+ <input class="btn btn-primary btn-lg btn-block" type="submit" name="{{btnText}}" value="{{btnText}}">
 
 <br>
 

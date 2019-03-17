@@ -149,7 +149,8 @@ def project(crud, project_id):
         elif crud == 'read':
             # in this situation, project info is checked with readonly
             fetchResult = fetch_document('project', 'project_no', project_id)
-            fetchResult["readonly"] = "readonly"
+            print(fetchResult.keys)
+            fetchResult["is_read"] = 1
             return template('tpl/project', **fetchResult)
         elif crud == 'update':
             # send back the stored data according to project_id return result
