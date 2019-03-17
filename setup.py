@@ -1,23 +1,42 @@
-# from pymongo import MongoClient
-import pymongo
-# connect to db
-# client = MongoClient()
-# db = client.PPT
+from pymongo import MongoClient
+
+# connect to local Mongodb
+client = MongoClient()
+
+# connect to Mongo Atlas Remote
+# client = MongoClient("mongodb+srv://chenming123:chenming123@cmcluster-s42od.mongodb.net/test?retryWrites=true")
 
 
-client = pymongo.MongoClient("mongodb+srv://chenming123:chenming123@cmcluster-s42od.mongodb.net/test?retryWrites=true")
+
+# connect to db-PPT
 db = client.PPT
 
 
 # connect to collection project
-project = db.project
+# project = db.project
 
 
-# create userone dict
-dict_userone = {
-    "user_name" : "chenmingio",
+# create user dict for pur
+dict_pur = {
+    "user_name" : "pur",
     "password" : "666",
     "user_group" : "PUR",
+    "token" : "ssss"
+}
+
+# create user dict for supplier
+dict_supplier = {
+    "user_name" : "supplier",
+    "password" : "111",
+    "user_group" : "Supplier",
+    "token" : "ssss"
+}
+
+# create user dict for supplier
+dict_pjm = {
+    "user_name" : "pjm",
+    "password" : "111",
+    "user_group" : "PJM",
     "token" : "ssss"
 }
 
@@ -80,18 +99,13 @@ dict_project = {
 }
 
 
-def insert_user(dict):
-    '''insert user. Input a dict-object of user'''
+def insert_document(collection_name, dict):
+    '''insert dict into collection_name'''
 
-    user = db.user
-    user.insert_one(dict)
-    print('success')
+    collection = getattr(db, collection_name)
+    result = collection.insert_one(dict)
+    print(result)
 
-def insert_demo_project(dict):
-    '''insert a demo project into mongodb'''
 
-    project =db.project
-    project.insert_one(dict)
-
-insert_user(dict_userone)
-insert_demo_project(dict_project)
+for dict in (dict_supplier, dict_pjm, dict_pur):
+    insert_document('user', dict)

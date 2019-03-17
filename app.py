@@ -18,6 +18,20 @@ client = MongoClient()
 db = client.PPT
 
 
+def insert_document(collection_name, dict):
+    '''insert dict into collection_name'''
+    collection = getattr(db, collection_name)
+    result = collection.insert_one(dict)
+
+def fetch_document(collection_name, key, value):
+    '''return the document in a collection according to its key and vaule'''
+
+    collection = getattr(db, collection_name)
+    query = {key: value}
+    result = collection.find_one(query)
+    return result
+
+
 def fetch_user(key, value):
     '''fetch document in user collection with key and value. return the first one matches in dict-object'''
 
@@ -61,7 +75,7 @@ def create_session(user_name):
 
 def get_session(request):
     token = request.get_cookie('token')
-    userDoc = fetch_user('token', token)
+    userDoc = fetch_document('user', 'token', token)
     return userDoc
 
 def FormsDict2PythonDict(FormsDict):
