@@ -32,7 +32,7 @@ dict_supplier = {
     "token" : "ssss"
 }
 
-# create user dict for supplier
+# create user dict for pjm
 dict_pjm = {
     "user_name" : "pjm",
     "password" : "111",
@@ -40,72 +40,27 @@ dict_pjm = {
     "token" : "ssss"
 }
 
-dict_project = {
-    "project_no" : "qwert",
-    "project_name" : "h",
-    "production_line" : "h",
-    "fg_no" : "lkh",
-    "product_cycletime" : "lk",
-    "runrate_hella" : "hlk",
-    "pv_hella" : "hjk",
-    "sop_hella" : "l",
-    "sop_customer" : "j;l",
-    "t3_date" : "j",
-    "t4_date" : "lkj",
-    "pv_supplier" : "l;k",
-    "purchasing" : "jl",
-    "pjm" : "jk",
-    "md" : "j",
-    "sqa_ttm" : "kg",
-    "controlling" : "kjf",
-    "me" : "jhgf",
-    "planner" : "h",
-    "year1_volume" : "gk",
-    "year2_volume" : "hl",
-    "year3_volume" : "g",
-    "year4_volume" : "kjg",
-    "year5_volume" : "lh",
-    "year6_volume" : "kj",
-    "year7_volume" : "hk",
-    "year8_volume" : "hlk",
-    "year9_volume" : "g",
-    "year10_volume" : "g",
-    "part1_pn" : "jg",
-    "part1_description" : "j",
-    "part1_usage" : "g",
-    "part1_target_price" : "kh",
-    "part1_target_invest" : "h",
-    "part2_pn" : "lk",
-    "part2_description" : "h",
-    "part2_usage" : "g",
-    "part2_target_price" : "jgh",
-    "part2_target_invest" : "kh",
-    "part3_pn" : "",
-    "part3_description" : "hlk",
-    "part3_usage" : "h",
-    "part3_target_price" : "lkjh",
-    "part3_target_invest" : "",
-    "part4_pn" : "",
-    "part4_description" : "",
-    "part4_usage" : "",
-    "part4_target_price" : "",
-    "part4_target_invest" : "",
-    "part5_pn" : "",
-    "part5_description" : "",
-    "part5_usage" : "",
-    "part5_target_price" : "",
-    "part5_target_invest" : "",
-    "save" : "Save"
-}
-
+suggest_dict = {'project_no': 'same_as_key', 'project_name': 'project_name', 'production_line': 'production_line', 'fg_no': 'fg_no', 'product_cycletime': 'product_cycletime', 'runrate_hella': 'runrate_hella', 'pv_hella': 'pv_hella', 'sop_hella': 'sop_hella', 'sop_customer': 'sop_customer', 't3_date': 't3_date', 't4_date': 't4_date', 'pv_supplier': 'pv_supplier', 'purchasing': 'purchasing', 'pjm': 'pjm', 'md': 'md', 'sqa_ttm': 'sqa_ttm', 'controlling': 'controlling', 'me': 'me', 'planner': 'planner', 'year1_volume': 'year1_volume', 'year2_volume': 'year2_volume', 'year3_volume': 'year3_volume', 'year4_volume': 'year4_volume', 'year5_volume': 'year5_volume', 'year6_volume': 'year6_volume', 'year7_volume': 'year7_volume', 'year8_volume': 'year8_volume', 'year9_volume': 'year9_volume', 'year10_volume': 'year10_volume', 'part1_pn': 'part1_pn', 'part1_description': 'part1_description', 'part1_usage': 'part1_usage', 'part1_target_price': 'part1_target_price', 'part1_target_invest': 'part1_target_invest', 'part2_pn': 'part2_pn', 'part2_description': 'part2_description', 'part2_usage': 'part2_usage', 'part2_target_price': 'part2_target_price', 'part2_target_invest': 'part2_target_invest', 'part3_pn': 'part3_pn', 'part3_description': 'part3_description', 'part3_usage': 'part3_usage', 'part3_target_price': 'part3_target_price', 'part3_target_invest': 'part3_target_invest', 'part4_pn': 'part4_pn', 'part4_description': 'part4_description', 'part4_usage': 'part4_usage', 'part4_target_price': 'part4_target_price', 'part4_target_invest': 'part4_target_invest', 'part5_pn': 'part5_pn', 'part5_description': 'part5_description', 'part5_usage': 'part5_usage', 'part5_target_price': 'part5_target_price', 'part5_target_invest': 'part5_target_invest', 'save': 'save'}
 
 def insert_document(collection_name, dict):
-    '''insert dict into collection_name'''
+    '''insert dict into collection_name as a document'''
 
     collection = getattr(db, collection_name)
     result = collection.insert_one(dict)
     print(result)
 
 
-for dict in (dict_supplier, dict_pjm, dict_pur):
-    insert_document('user', dict)
+def create_standart_dict(dict):
+    '''create a dict with project key with value=key'''
+
+    for itemstring in iter(dict):
+        dict[itemstring] = str(itemstring)
+
+        return dict
+
+
+# new_dict = create_standart_dict(dict_pur)
+# print(new_dict)
+
+insert_document('project', suggest_dict)
+
