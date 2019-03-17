@@ -125,24 +125,35 @@ def overview():
     return 'building...'
 
 
-@route('/project/<project_id>', method=['GET', 'POST'])
-def project(project_id):
+@route('/project/<crud>/<project_id>', method=['GET', 'POST'])
+def project(crud, project_id):
+    '''crud: create/read/update/delete + save'''
+
+    # TODO: if the project_id changes, how to solve? 
+
 
     userDoc = get_session(request)
 
     if userDoc['user_group'] in ['PUR', 'PJM']:
-        if project_id == 'new':
-            fetchSuggestion= fetch_document('project', 'project_no', 'qwert')
-            fetchSuggestion["toggle"] = 'NA'
+
+        if crud == 'create':
+            # when create a new project, return a standard project(projectid == 'projct_no') info as placeholder
+            fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
+            # fetchSuggestion["crud"] = 'create'
             return template('tpl/project', **fetchSuggestion)
-        elif project_id == 'save':
+        elif crud == 'save':
+            # in this situation, url receive a new form just been send to project/save
             projectInfo = request.forms
             addResult = add_project(projectInfo)
             return "added"
-        else:
+        elif crud == 'read':
+            # in this situation, project info is checked with readonly
             fetchResult = fetch_document('project', 'project_no', project_id)
-            fetchResult["toggle"] = "readonly"
+            fetchResult["readonly"] = "readonly"
             return template('tpl/project', **fetchResult)
+        elif crud == 'update':
+            # send back the stored data according to project_id return result
+            pass
     else:
         redirect("/main")
 
