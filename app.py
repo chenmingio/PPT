@@ -105,6 +105,12 @@ def overview(project_id):
     fetchProjectInfo = fetch_document('project', 'project_no', project_id)
     return fetchProjectInfo
 
+@route('/project/test/info/create', method=['GET', 'POST'])
+@view('projectInfo.html', template_lookup=['templates'])
+def test():
+    fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
+    return fetchSuggestion
+
 
 
 @route('/project/<project_id>/info/<crud>', method=['GET', 'POST'])
@@ -119,7 +125,7 @@ def project(crud, project_id):
     if userDoc['user_group'] in ['PUR', 'PJM']:
 
         if crud == 'create':
-            # when create a new project, return a standard project(projectid == 'projct_no') info as placeholder
+            # when create a new project, return a standard/instrumental project(projectid == 'projct_no') info as placeholder
             fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
             # fetchSuggestion["crud"] = 'create'
             return template('tpl/project', **fetchSuggestion)
