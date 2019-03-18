@@ -10,6 +10,7 @@ response = bottle.response
 template = bottle.template
 debug = bottle.debug
 redirect = bottle.redirect
+view = bottle.jinja2_view
 
 MongoClient = pymongo.MongoClient
 
@@ -92,13 +93,21 @@ def main():
         redirect("/signin")
 
 
-@route('/overview')
-def overview():
-    userDoc = get_session(request)
-    return 'building...'
+
+@route('/project/<project_id>', method=['GET', 'POST'])
+@view('project.html', template_lookup=['templates'])
+def overview(project_id):
+    '''an overview of certain project. Readonly. No form necessary.'''
+
+    # TODO user authorization
+
+    # fetch basic project Info
+    fetchProjectInfo = fetch_document('project', 'project_no', project_id)
+    return fetchProjectInfo
 
 
-@route('/project/info/<project_id>/<crud>', method=['GET', 'POST'])
+
+@route('/project/<project_id>/info/<crud>', method=['GET', 'POST'])
 def project(crud, project_id):
     '''crud: create/read/update/delete + save'''
 
