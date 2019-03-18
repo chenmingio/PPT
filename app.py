@@ -105,11 +105,30 @@ def overview(project_id):
     fetchProjectInfo = fetch_document('project', 'project_no', project_id)
     return fetchProjectInfo
 
-@route('/project/test/info/create', method=['GET', 'POST'])
+@route('/test/project/<project_id>/info/<crud>', method=['GET', 'POST'])
 @view('projectInfo.html', template_lookup=['templates'])
-def test():
-    fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
-    return fetchSuggestion
+def test(project_id, crud):
+
+    userDoc = get_session(request)
+
+    if userDoc['user_group'] in ['PUR', 'PJM']:
+
+        if crud == 'create':
+            fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
+            return fetchSuggestion
+        elif crud == 'read' or 'update':
+            fetchResult = fetch_document('project', 'project_no', project_id)
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True # 回头把它放在response里面试试
+            return fetchResult
+        elif crud == 'save':
+            projectInfo = request.forms
+            addResult = add_project(projectInfo)
+            return 'added'
+    else:
+            "test failed"
+
+
 
 
 
@@ -117,7 +136,7 @@ def test():
 def project(crud, project_id):
     '''crud: create/read/update/delete + save'''
 
-    # TODO: if the project_id changes, how to solve? 
+    # TODO: if the project_id changes, how to solve? if there's a blank in project id... 
 
 
     userDoc = get_session(request)

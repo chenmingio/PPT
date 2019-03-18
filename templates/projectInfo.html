@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
 {% set JumboText_h1 = project_name + " Overview" %}
-{% set JumboText_p1 = None %}
+{% set JumboText_p1 = 'is read' %}
 {% set JumboText_p2 = None %}
-{% set JumboText_p3 = None %}
+
+
+{% if is_read %}
+{% set formToggle = "readonly" %} 
+{% set btnText = "click to edit" %}
+{% set btnDirection = "/test/project/" + project_no + "/info/update" %} 
+{% endif %} 
+
 
 {% block content %}
-  <form action="/project/test/info/create" method="POST">
+  <form action={{ btnDirection }} method="POST">
 
     <div class="form-row">
     <h1>{{'status_bar'}}</h1>
