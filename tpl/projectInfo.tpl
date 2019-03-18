@@ -60,22 +60,33 @@
       </div>
     </nav>
 
+
+<!-- python code for toggling the readonly status -->
+<!-- init status. Also used as create mode -->
+% is_update = 0
+% formToggle = None
+% btnText = 'Confirm to Create'
+% status_bar = 'Creating a new project'
+
+<!--conditional status read -->
+% if is_read:
+% formToggle = 'readonly'
+% btnText = 'Click to Change'
+% status_bar = 'Project Info read-only.'
+% end
+
+<!--conditional status update -->
+% if is_update:
+% formToggle = None
+% btnText = 'Confirm the Update'
+% status_bar = 'Click where you want to update.'
+% end
+
     <!-- Content -->
 <div class="container" style="margin-top:30px">
   <form action="/project/save" method="POST">
 
     <div class="form-row">
-
-<!-- python code for toggling the readonly status -->
-
-% formToggle = None
-
-% if is_read:
-% formToggle = 'readonly'
-% btnText = 'Edit'
-% status_bar = 'Project Info read-only. Click edit to update.'
-% end
-
     <h1>{{status_bar}}</h1>
         <legend>Basic Info</legend>
 
@@ -402,7 +413,7 @@
 
  <hr>
 
- <input class="btn btn-primary btn-lg btn-block" type="submit" name="{{btnText}}" value="{{btnText}}">
+ <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" value="{{btnText}}">
 
 <br>
 

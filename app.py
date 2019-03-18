@@ -1,4 +1,5 @@
 import bottle
+import jinja2
 import uuid
 import pymongo
 
@@ -31,28 +32,6 @@ def fetch_document(collection_name, key, value):
     result = collection.find_one(query)
     return result
 
-
-def fetch_user(key, value):
-    '''fetch document in user collection with key and value. return the first one matches in dict-object'''
-
-    # connect to collection user
-    user = db.user
-    # build query and get result
-    query = {key: value}
-    result = user.find_one(query)
-    return result
-
-def fetch_project(key, value):
-    '''fetch document in project collection with key and value. return the first one matches in dict-object'''
-
-    # connect to collection project
-    project = db.project
-
-    # build query and get result
-    query = {key: value}
-    result = project.find_one(query)
-    return result
-
 def add_project(projectInfo):
     """input a project info dictionary-object and save it in project collection"""
 
@@ -77,12 +56,6 @@ def get_session(request):
     token = request.get_cookie('token')
     userDoc = fetch_document('user', 'token', token)
     return userDoc
-
-def FormsDict2PythonDict(FormsDict):
-    pyDict = {}
-    for item in FormsDict:
-        pass
-
 
 
 
@@ -125,7 +98,7 @@ def overview():
     return 'building...'
 
 
-@route('/project/<crud>/<project_id>', method=['GET', 'POST'])
+@route('/project/info/<project_id>/<crud>', method=['GET', 'POST'])
 def project(crud, project_id):
     '''crud: create/read/update/delete + save'''
 
@@ -151,7 +124,7 @@ def project(crud, project_id):
             fetchResult = fetch_document('project', 'project_no', project_id)
             print(fetchResult.keys)
             fetchResult["is_read"] = 1
-            return template('tpl/project', **fetchResult)
+            return template('tpl/projectInfo', **fetchResult)
         elif crud == 'update':
             # send back the stored data according to project_id return result
             pass
