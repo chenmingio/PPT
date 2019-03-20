@@ -11,6 +11,7 @@ template = bottle.template
 debug = bottle.debug
 redirect = bottle.redirect
 view = bottle.jinja2_view
+static_file = bottle.static_file
 
 MongoClient = pymongo.MongoClient
 
@@ -40,6 +41,18 @@ def remove_document(collection_name, key, value):
     query = {key: value}
     collection.remove(query)
 
+def find_info(collection_name, queryDict, fieldList):
+    collection = getattr(db, collection_name)
+    query = queryDict
+    print(query)
+    fields = {item : True for item in fieldList}
+    print(fields)
+    cursor = collection.find(query, fields)
+    return cursor
+
+
+
+
 
 def save_project(projectInfo):
     """input a project info dictionary-object and save it in project collection"""
@@ -67,11 +80,11 @@ def get_session(request):
     return userDoc
 
 
+@route('/login', method=['GET', 'POST'])
+@view('login.html', template_lookup=['templates'])
+def login():
 
-@route('/signin', method=['GET', 'POST'])
-def signin():
-
-    if request.POST.signin:
+    if request.POST.login:
         reqUserName = request.forms['user_name']
         reqPassword = request.forms['password']
 
@@ -85,10 +98,10 @@ def signin():
         else:
             return 'no such user'
     else:
-        return template('tpl/signin')
+        return {'title': "Hello World"}
 
-@route('/')
 @route('/main')
+@view('main.html', template_lookup=['templates'])
 def main():
     userDoc = get_session(request)
 
@@ -96,9 +109,11 @@ def main():
         userGroup = userDoc['user_group']
         userName = userDoc['user_name']
 
-        return template('tpl/main', user_name=userName, user_group=userGroup)
+        # extract all project names according to userName
+        findInfoResult = find_info('project', {userGroup : userName}, ['project_name'])
+        return findInfoResult
     else:
-        redirect("/signin")
+        redirect("/login")
 
 
 
@@ -113,7 +128,7 @@ def overview(project_id):
     fetchProjectInfo = fetch_document('project', 'project_no', project_id)
     return fetchProjectInfo
 
-@route('/test/project/<project_id>/info/<crud>', method=['GET', 'POST'])
+@route('/project/<project_id>/info/<crud>', method=['GET', 'POST'])
 @view('projectInfo.html', template_lookup=['templates'])
 def test(project_id, crud):
 
@@ -142,47 +157,12 @@ def test(project_id, crud):
             return fetchResult
         elif crud == 'save':
             requestForm = request.forms
-            remove_document('project', 'project_no', requestForm['project_no'] )
+            remove_document('project', 'project_no', requestForm['project_no'])
             saveResult = save_project(requestForm)
             redirect ("/main")
     else:
             "test failed"
 
-
-
-
-
-@route('/project/<project_id>/info/<crud>', method=['GET', 'POST'])
-def project(crud, project_id):
-    '''crud: create/read/update/delete + save'''
-
-
-
-    userDoc = get_session(request)
-
-    if userDoc['user_group'] in ['PUR', 'PJM']:
-
-        if crud == 'create':
-            # when create a new project, return a standard/instrumental project(projectid == 'projct_no') info as placeholder
-            fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
-            # fetchSuggestion["crud"] = 'create'
-            return template('tpl/project', **fetchSuggestion)
-        elif crud == 'save':
-            # in this situation, url receive a new form just been send to project/save
-            projectInfo = request.forms
-            addResult = save_project(projectInfo)
-            return "added"
-        elif crud == 'read':
-            # in this situation, project info is checked with readonly
-            fetchResult = fetch_document('project', 'project_no', project_id)
-            print(fetchResult.keys)
-            fetchResult["is_read"] = 1
-            return template('tpl/projectInfo', **fetchResult)
-        elif crud == 'update':
-            # send back the stored data according to project_id return result
-            pass
-    else:
-        redirect("/main")
 
 @route('/quotation', method=['GET', 'POST'])
 def quotation():
