@@ -2,6 +2,7 @@ import bottle
 import jinja2
 import uuid
 import pymongo
+import time
 
 route = bottle.route
 run = bottle.run
@@ -11,6 +12,8 @@ debug = bottle.debug
 redirect = bottle.redirect
 view = bottle.jinja2_view
 static_file = bottle.static_file
+
+uuid = uuid.uuid4
 
 MongoClient = pymongo.MongoClient
 
@@ -60,7 +63,7 @@ def save_project(projectInfo):
 
 def create_session(user_name):
     '''create a uuid string as token and go to user_name collection and store the token'''
-    token = str(uuid.uuid4())
+    token = str(uuid())
     user = db.user
     # store the token at certain user document
     query = {'user_name': user_name}
@@ -144,7 +147,7 @@ def test(project_id, crud):
 
     userDoc = get_session(request)
 
-    if userDoc['user_group'] in ['PUR', 'PJM']:
+    if userDoc['user_group'] in ['purchasing', 'pjm']:
 
         if crud == 'create':
             fetchResult = fetch_document('project', 'project_no', 'project_no')
@@ -174,16 +177,27 @@ def test(project_id, crud):
             "test failed"
 
 
-@route('/quotation', method=['GET', 'POST'])
+@route('/quotation/<quotation_id>/<crud>', method=['GET', 'POST'])
 @view('quotation.html', template_lookup=['templates'])
-def quotation():
+def quotation(quotation_id, crud):
 
-    if request.POST.save:
-        request_dict = request.forms
-        print(str(request_dict))
-        return "success"
-    else:
-        return template('tpl/CBDInjection')
+    userDoc = get_session(request)
+
+    if userDoc['user_group'] in ['purchasing', 'supplier']:
+
+        if crud == 'create':
+            # fetchResult = fetch_document('quotation', 'project_no', 'project_no')
+            quotation_id = str(uuid())[:8]
+            print(quotation_id)
+            fetchResult = {}
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            fetchResult['quotation_id'] = quotation_id
+            fetchResult['UTC'] = time.time()
+            return fetchResult
+
+        pass
+
 
 if __name__ == "__main__":
     run(host='localhost', port=8080, debug=True, reloader=True)
@@ -193,3 +207,4 @@ app = bottle.default_app()
 # TODO forbid the user to change default/templete
 # TODO mongodb has uuid support
 # TODO: if the project_id changes, how to solve? if there's a blank in project id... 
+# TODO: thinking about use class to contain data (Class Quotation/Project...)
