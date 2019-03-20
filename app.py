@@ -3,6 +3,7 @@ import jinja2
 import uuid
 import pymongo
 import time
+import bson
 
 route = bottle.route
 run = bottle.run
@@ -14,6 +15,8 @@ view = bottle.jinja2_view
 static_file = bottle.static_file
 
 uuid = uuid.uuid4
+
+ObjectId = bson.ObjectId
 
 MongoClient = pymongo.MongoClient
 
@@ -156,7 +159,6 @@ def test(project_id, crud):
             fetchResult[is_crud] = True
             return fetchResult
         elif crud == 'read':
-            print(crud)
             fetchResult = fetch_document('project', 'project_no', project_id)
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
@@ -171,31 +173,44 @@ def test(project_id, crud):
         elif crud == 'save':
             requestForm = request.forms
             remove_document('project', 'project_no', requestForm['project_no'])
-            saveResult = save_project(requestForm)
+            saveResult = save_project(requestForm) # why not use insertdocument
             redirect ("/main")
     else:
             "test failed"
 
 
-@route('/quotation/<quotation_id>/<crud>', method=['GET', 'POST'])
+@route('/quotation/<part_id>/<quotation_id>/<crud>', method=['GET', 'POST'])
 @view('quotation.html', template_lookup=['templates'])
-def quotation(quotation_id, crud):
+def quotation(part_id, quotation_id, crud):
 
     userDoc = get_session(request)
 
     if userDoc['user_group'] in ['purchasing', 'supplier']:
+        userName = userDoc['user_name']
 
         if crud == 'create':
-            # fetchResult = fetch_document('quotation', 'project_no', 'project_no')
-            quotation_id = str(uuid())[:8]
-            print(quotation_id)
-            fetchResult = {}
+            fetchResult = fetch_document('quotation', '_id', ObjectId("5c9255bff4a2c029246a69aa")) # should put the id of suggested value
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            fetchResult['part_id'] = part_id
+            return fetchResult
+        elif crud == 'update':
+            fetchResult = fetch_document('quotation', '_id', ObjectId(quotation_id))
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            fetchResult['part_id'] = part_id
+            return fetchResult
+        elif crud == 'read':
+            fetchResult = fetch_document('quotation', '_id', ObjectId(quotation_id))
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
             fetchResult['quotation_id'] = quotation_id
-            fetchResult['UTC'] = time.time()
             return fetchResult
-
+        elif crud == 'save':
+            requestForm = request.forms
+            requestForm['author'] = userName
+            insert_document('quotation', requestForm)
+            return 'saved'
         pass
 
 
