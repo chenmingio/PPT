@@ -3,6 +3,34 @@
 
 {% block content %}
 
-<h1>now nothing  {{ 1project }} man</h1>
+
+<div class="row">
+    <div class="col-lg-4">
+        <img class="rounded-circle" src="https://cdn.worldvectorlogo.com/logos/hella.svg" alt="Generic placeholder image" width="140" height="140">
+        <h4>{{ project_name1 }}</h4>
+        <p>T3 date: {{ t3_date1 }}</p>
+        <p>T4 date: {{ t4_date1 }}</p>
+        <p><a class="btn btn-secondary" href="/project/{{ project_no1 }}" role="button">View details »</a></p>
+    </div>
+
+
+    <div class="col-lg-4">
+        <img class="rounded-circle" src="https://cdn.worldvectorlogo.com/logos/hella.svg" alt="Generic placeholder image" width="140" height="140">
+        <h4>{{ project_name2 }}</h4>
+        <p>T3 date: {{ t3_date2 }}</p>
+        <p>T4 date: {{ t4_date2 }}</p>
+        <p><a class="btn btn-secondary" href="/project/{{ project_no2 }}" role="button">View details »</a></p>
+    </div>
+
+
+
+    <div class="col-lg-4">
+        <img class="rounded-circle" src="https://cdn.worldvectorlogo.com/logos/hella.svg" alt="Generic placeholder image" width="140" height="140">
+        <h4>{{ project_name3 }}</h4>
+        <p>T4 date: {{ t4_date3 }}</p>
+        <p><a class="btn btn-secondary" href="/project/{{ project_no3 }}" role="button">View details »</a></p>
+    </div>
+</div>
+
 
 {% endblock %}

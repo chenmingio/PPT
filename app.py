@@ -7,7 +7,6 @@ route = bottle.route
 run = bottle.run
 request = bottle.request
 response = bottle.response
-template = bottle.template
 debug = bottle.debug
 redirect = bottle.redirect
 view = bottle.jinja2_view
@@ -108,7 +107,7 @@ def main():
 
         # extract all project names according to userName
         query = {userGroup : userName}
-        fields = ['project_name', 'purchasing']
+        fields = ['project_no', 'project_name', 't3_date', 't4_date']
         findInfoResult = find_info('project', query, fields)
         resultDict = {}
         n = 1
@@ -121,7 +120,8 @@ def main():
             n = n + 1
 
         print(resultDict)
-        return '666'
+
+        return resultDict
     else:
         redirect("/login")
 
@@ -175,6 +175,7 @@ def test(project_id, crud):
 
 
 @route('/quotation', method=['GET', 'POST'])
+@view('quotation.html', template_lookup=['templates'])
 def quotation():
 
     if request.POST.save:
