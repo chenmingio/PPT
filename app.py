@@ -33,7 +33,15 @@ def fetch_document(collection_name, key, value):
     result = collection.find_one(query)
     return result
 
-def add_project(projectInfo):
+def remove_document(collection_name, key, value):
+    ''' pass '''
+
+    collection = getattr(db, collection_name)
+    query = {key: value}
+    collection.remove(query)
+
+
+def save_project(projectInfo):
     """input a project info dictionary-object and save it in project collection"""
 
     # connect to collection project
@@ -114,17 +122,29 @@ def test(project_id, crud):
     if userDoc['user_group'] in ['PUR', 'PJM']:
 
         if crud == 'create':
-            fetchSuggestion = fetch_document('project', 'project_no', 'project_no')
-            return fetchSuggestion
-        elif crud == 'read' or 'update':
+            fetchResult = fetch_document('project', 'project_no', 'project_no')
+            is_crud = f'is_{crud}'
+            print(is_crud)
+            fetchResult[is_crud] = True
+            return fetchResult
+        elif crud == 'read':
+            print(crud)
             fetchResult = fetch_document('project', 'project_no', project_id)
             is_crud = f'is_{crud}'
-            fetchResult[is_crud] = True # 回头把它放在response里面试试
+            fetchResult[is_crud] = True
+            return fetchResult
+        elif crud == 'update':
+            # update is same as read. But use 'read' or 'update' just doesn't work!
+            print(crud)
+            fetchResult = fetch_document('project', 'project_no', project_id)
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
             return fetchResult
         elif crud == 'save':
-            projectInfo = request.forms
-            addResult = add_project(projectInfo)
-            return 'added'
+            requestForm = request.forms
+            remove_document('project', 'project_no', requestForm['project_no'] )
+            saveResult = save_project(requestForm)
+            redirect ("/main")
     else:
             "test failed"
 
@@ -136,7 +156,6 @@ def test(project_id, crud):
 def project(crud, project_id):
     '''crud: create/read/update/delete + save'''
 
-    # TODO: if the project_id changes, how to solve? if there's a blank in project id... 
 
 
     userDoc = get_session(request)
@@ -151,7 +170,7 @@ def project(crud, project_id):
         elif crud == 'save':
             # in this situation, url receive a new form just been send to project/save
             projectInfo = request.forms
-            addResult = add_project(projectInfo)
+            addResult = save_project(projectInfo)
             return "added"
         elif crud == 'read':
             # in this situation, project info is checked with readonly
@@ -179,3 +198,7 @@ if __name__ == "__main__":
     run(host='localhost', port=8080, debug=True, reloader=True)
 
 app = bottle.default_app()
+
+# TODO forbid the user to change default/templete
+# TODO mongodb has uuid support
+# TODO: if the project_id changes, how to solve? if there's a blank in project id... 

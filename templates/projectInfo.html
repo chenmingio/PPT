@@ -4,26 +4,359 @@
 {% set JumboText_p1 = 'is read' %}
 {% set JumboText_p2 = None %}
 
+{% if is_create %}
+{% set valueToggle = "placeholder" %}
+{% set readonlyToggle = "" %}
+{% set btnText = "create" %}
+{% set btnDirection = "/test/project/new/info/save" %}
+{% endif %}
+
 
 {% if is_read %}
-{% set formToggle = "readonly" %} 
+{% set valueToggle = "placeholder" %}
+{% set readonlyToggle = "readonly" %}
 {% set btnText = "click to edit" %}
-{% set btnDirection = "/test/project/" + project_no + "/info/update" %} 
-{% endif %} 
+{% set btnDirection = "/test/project/" + project_no + "/info/update" %}
+{% endif %}
+
+
+
+{% if is_update %}
+{% set valueToggle = "value" %}
+{% set readonlyToggle = "" %}
+{% set btnText = "save" %}
+{% set btnDirection = "/test/project/foo/info/save" %}
+{% endif %}
+
 
 
 {% block content %}
   <form action={{ btnDirection }} method="POST">
 
-      {% for item in projectDeck %}
+    <div class="form-row">
+    <h1>{{'status_bar'}}</h1>
+        <legend>Basic Info</legend>
 
-      <div class="form-group {{ item[3] }}">
-          <label for="{{ item[0] }}">{{ item[2] }}</label>
-          <input name="{{ item[0] }}" type="text" class="form-contrl" placeholder="{{ item[1] }}" />
-      </div>
+        <div class="form-group col-md-4">
+      <label for="project_no">Project Number</label>
+      <input type="text" class="form-control" name="project_no" {{valueToggle}}={{project_no}} {{readonlyToggle}}>
+        </div>
 
-      {% endfor %}
+        <div class="form-group col-md-4">
+      <label for="project_name">Project Name</label>
+      <input type="text" class="form-control" name="project_name" {{valueToggle}}={{project_name}} {{readonlyToggle}}>
+        </div>
 
+
+        <div class="form-group col-md-4">
+      <label for="production_line">Production Line</label>
+      <input type="text" class="form-control" name="production_line" {{valueToggle}}={{production_line}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-4">
+      <label for="fg_no">FG Number</label>
+      <input type="text" class="form-control" name="fg_no" {{valueToggle}}={{fg_no}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-4">
+      <label for="product_cycletime">Product Cycle Time</label>
+      <input type="text" class="form-control" name="product_cycletime" {{valueToggle}}={{product_cycletime}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+        <hr>
+
+    <div class="form-row">
+        <legend>Timing Request</legend>
+
+        <div class="form-group col-md-3">
+      <label for="runrate_hella">Run&Rate @Hella</label>
+      <input type="text" class="form-control" name="runrate_hella" {{valueToggle}}={{runrate_hella}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="pv_hella">PV @Hella</label>
+      <input type="text" class="form-control" name="pv_hella" {{valueToggle}}={{pv_hella}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="sop_hella">SOP @Hella</label>
+      <input type="text" class="form-control" name="sop_hella" {{valueToggle}}={{sop_hella}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="sop_customer">SOP @Customer</label>
+      <input type="text" class="form-control" name="sop_customer" {{valueToggle}}={{sop_customer}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="t3_date">T3 Sample Request Date</label>
+      <input type="text" class="form-control" name="t3_date" {{valueToggle}}={{t3_date}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="t4_date">T4 Sample Request Date</label>
+      <input type="text" class="form-control" name="t4_date" {{valueToggle}}={{t4_date}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="pv_supplier">PV Sample Request Date</label>
+      <input type="text" class="form-control" name="pv_supplier" {{valueToggle}}={{pv_supplier}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+        <hr>
+
+    <div class="form-row">
+        <legend>Human Resource</legend>
+
+        <div class="form-group col-md-3">
+          <label for="purchasing">Purchasing</label>
+      <input type="text" class="form-control" name="purchasing" {{valueToggle}}={{purchasing}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="pjm">Project Management</label>
+      <input type="text" class="form-control" name="pjm" {{valueToggle}}={{pjm}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="md">Mechanical Design</label>
+      <input type="text" class="form-control" name="md" {{valueToggle}}={{md}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="sqa_ttm">SQA-TtM</label>
+      <input type="text" class="form-control" name="sqa_ttm" {{valueToggle}}={{sqa_ttm}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="controlling">Controlling</label>
+      <input type="text" class="form-control" name="controlling" {{valueToggle}}={{controlling}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="me">ME</label>
+      <input type="text" class="form-control" name="me" {{valueToggle}}={{me}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-3">
+      <label for="planner">Material Planner</label>
+      <input type="text" class="form-control" name="planner" {{valueToggle}}={{planner}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+    <hr>
+
+ <div class="form-row">
+        <legend>Volume in 1,000</legend>
+        <div class="form-group col-md-1">
+      <label for="year1_volume">Year-1 Volume</label>
+      <input type="text" class="form-control" name="year1_volume" {{valueToggle}}={{year1_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year2_volume">Year-2 Volume</label>
+      <input type="text" class="form-control" name="year2_volume" {{valueToggle}}={{year2_volume}}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year3_volume">Year-3 Volume</label>
+      <input type="text" class="form-control" name="year3_volume" {{valueToggle}}={{year3_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year4_volume">Year-4 Volume</label>
+      <input type="text" class="form-control" name="year4_volume" {{valueToggle}}={{year4_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year5_volume">Year-5 Volume</label>
+      <input type="text" class="form-control" name="year5_volume" {{valueToggle}}={{year5_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year6_volume">Year-6 Volume</label>
+      <input type="text" class="form-control" name="year6_volume" {{valueToggle}}={{year6_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year7_volume">Year-7 Volume</label>
+      <input type="text" class="form-control" name="year7_volume" {{valueToggle}}={{year7_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year8_volume">Year-8 Volume</label>
+      <input type="text" class="form-control" name="year8_volume" {{valueToggle}}={{year8_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year9_volume">Year-9 Volume</label>
+      <input type="text" class="form-control" name="year9_volume" {{valueToggle}}={{year9_volume}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-1">
+      <label for="year10_volume">Year-10 Volume</label>
+      <input type="text" class="form-control" name="year10_volume" {{valueToggle}}={{year10_volume}} {{readonlyToggle}}>
+        </div>
+ </div>
+
+ <hr>
+
+    <div class="form-row">
+      <h2>Part Info</h2>
+        <legend>Part One</legend>
+
+        <div class="form-group col-md-2">
+      <label for="part1_pn">Part Number</label>
+      <input type="text" class="form-control" name="part1_pn" {{valueToggle}}={{part1_pn}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part1_description">Part Description</label>
+      <input type="text" class="form-control" name="part1_description" {{valueToggle}}={{part1_description}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part1_usage">Part Usage</label>
+      <input type="text" class="form-control" name="part1_usage" {{valueToggle}}={{part1_usage}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part1_target_price">Target Price</label>
+      <input type="text" class="form-control" name="part1_target_price" {{valueToggle}}={{part1_target_price}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part1_target_invest">Target Investment</label>
+      <input type="text" class="form-control" name="part1_target_invest" {{valueToggle}}={{part1_target_invest}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+
+    <div class="form-row">
+        <legend>Part Two</legend>
+
+        <div class="form-group col-md-2">
+      <label for="part2_pn">Part Number</label>
+      <input type="text" class="form-control" name="part2_pn" {{valueToggle}}={{part2_pn}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part2_description">Part Description</label>
+      <input type="text" class="form-control" name="part2_description" {{valueToggle}}={{part2_description}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part2_usage">Part Usage</label>
+      <input type="text" class="form-control" name="part2_usage" {{valueToggle}}={{part2_usage}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part2_target_price">Target Price</label>
+      <input type="text" class="form-control" name="part2_target_price" {{valueToggle}}={{part2_target_price}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part2_target_invest">Target Investment</label>
+      <input type="text" class="form-control" name="part2_target_invest" {{valueToggle}}={{part2_target_invest}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <legend>Part Three</legend>
+
+        <div class="form-group col-md-2">
+      <label for="part3_pn">Part Number</label>
+      <input type="text" class="form-control" name="part3_pn" {{valueToggle}}={{part3_pn}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part3_description">Part Description</label>
+      <input type="text" class="form-control" name="part3_description" {{valueToggle}}={{part3_description}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part3_usage">Part Usage</label>
+      <input type="text" class="form-control" name="part3_usage" {{valueToggle}}={{part3_usage}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part3_target_price">Target Price</label>
+      <input type="text" class="form-control" name="part3_target_price" {{valueToggle}}={{part3_target_price}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part3_target_invest">Target Investment</label>
+      <input type="text" class="form-control" name="part3_target_invest" {{valueToggle}}={{part3_target_invest}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <legend>Part Four</legend>
+
+        <div class="form-group col-md-2">
+      <label for="part4_pn">Part Number</label>
+      <input type="text" class="form-control" name="part4_pn" {{valueToggle}}={{part4_pn}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part4_description">Part Description</label>
+      <input type="text" class="form-control" name="part4_description" {{valueToggle}}={{part4_description}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part4_usage">Part Usage</label>
+      <input type="text" class="form-control" name="part4_usage" {{valueToggle}}={{part4_usage}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part4_target_price">Target Price</label>
+      <input type="text" class="form-control" name="part4_target_price" {{valueToggle}}={{part4_target_price}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part4_target_invest">Target Investment</label>
+      <input type="text" class="form-control" name="part4_target_invest" {{valueToggle}}={{part4_target_invest}} {{readonlyToggle}}>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <legend>Part Five</legend>
+
+        <div class="form-group col-md-2">
+      <label for="part5_pn">Part Number</label>
+      <input type="text" class="form-control" name="part5_pn" {{valueToggle}}={{part5_pn}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part5_description">Part Description</label>
+      <input type="text" class="form-control" name="part5_description" {{valueToggle}}={{part5_description}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part5_usage">Part Usage</label>
+      <input type="text" class="form-control" name="part5_usage" {{valueToggle}}={{part5_usage}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part5_target_price">Target Price</label>
+      <input type="text" class="form-control" name="part5_target_price" {{valueToggle}}={{part5_target_price}} {{readonlyToggle}}>
+        </div>
+
+        <div class="form-group col-md-2">
+      <label for="part5_target_invest">Target Investment</label>
+      <input type="text" class="form-control" name="part5_target_invest" {{valueToggle}}={{part5_target_invest}} {{readonlyToggle}}>
+        </div>
+
+    </div>
 
  <hr>
 
