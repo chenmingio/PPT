@@ -44,13 +44,9 @@ def remove_document(collection_name, key, value):
 def find_info(collection_name, queryDict, fieldList):
     collection = getattr(db, collection_name)
     query = queryDict
-    print(query)
     fields = {item : True for item in fieldList}
-    print(fields)
     cursor = collection.find(query, fields)
     return cursor
-
-
 
 
 
@@ -100,6 +96,7 @@ def login():
     else:
         return {'title': "Hello World"}
 
+@route('/')
 @route('/main')
 @view('main.html', template_lookup=['templates'])
 def main():
@@ -110,8 +107,21 @@ def main():
         userName = userDoc['user_name']
 
         # extract all project names according to userName
-        findInfoResult = find_info('project', {userGroup : userName}, ['project_name'])
-        return findInfoResult
+        query = {userGroup : userName}
+        fields = ['project_name', 'purchasing']
+        findInfoResult = find_info('project', query, fields)
+        resultDict = {}
+        n = 1
+        for dict in findInfoResult:
+            print(dict)
+            for field in fields:
+                key = str(field) + str(n)
+                value = dict[field]
+                resultDict[key] = value
+            n = n + 1
+
+        print(resultDict)
+        return '666'
     else:
         redirect("/login")
 
