@@ -4,6 +4,7 @@ import uuid
 import pymongo
 import time
 import bson
+import collections
 
 route = bottle.route
 run = bottle.run
@@ -52,6 +53,11 @@ def find_info(collection_name, queryDict, fieldList):
     fields = {item : True for item in fieldList}
     cursor = collection.find(query, fields)
     return cursor
+
+def save_document(collection_name, dict):
+    '''insert dict into collection_name'''
+    collection = getattr(db, collection_name)
+    result = collection.insert_one(dict)
 
 
 
@@ -111,21 +117,20 @@ def main():
         userGroup = userDoc['user_group']
         userName = userDoc['user_name']
 
-        # extract all project names according to userName
+        # extract all project names according to current userGroup and userName
         query = {userGroup : userName}
         fields = ['project_no', 'project_name', 't3_date', 't4_date']
         findInfoResult = find_info('project', query, fields)
-        resultDict = {}
+
+        # put a no after every attribute like: project_name1, t3_date2, t4_date3 ... # TODO later use project1.attr to transfer. Then use for loop to expand
+        resultDict = {'userName': userName}
         n = 1
         for dict in findInfoResult:
-            print(dict)
             for field in fields:
                 key = str(field) + str(n)
                 value = dict[field]
                 resultDict[key] = value
             n = n + 1
-
-        print(resultDict)
 
         return resultDict
     else:
@@ -138,24 +143,34 @@ def main():
 def overview(project_id):
     '''an overview of certain project. Readonly. No form necessary.'''
 
-    # TODO user authorization
+    userDoc = get_session(request)
 
-    # fetch basic project Info
-    fetchProjectInfo = fetch_document('project', 'project_no', project_id)
-    return fetchProjectInfo
+    if userDoc['user_group'] in ['purchasing']:
+
+        # TODO add a guard to make sure project purchasing name = userName
+
+        # fetch basic project Info
+        fetchProjectInfo = fetch_document('project', 'project_no', project_id)
+
+        return fetchProjectInfo
+    else:
+        return 'Purchasing ONLY'
+
+
+
+
 
 @route('/project/<project_id>/info/<crud>', method=['GET', 'POST'])
 @view('projectInfo.html', template_lookup=['templates'])
-def test(project_id, crud):
+def projectinfo(project_id, crud):
 
     userDoc = get_session(request)
 
     if userDoc['user_group'] in ['purchasing', 'pjm']:
 
         if crud == 'create':
-            fetchResult = fetch_document('project', 'project_no', 'project_no')
+            fetchResult = fetch_document('project', 'project_no', 'suggestion')
             is_crud = f'is_{crud}'
-            print(is_crud)
             fetchResult[is_crud] = True
             return fetchResult
         elif crud == 'read':
@@ -165,7 +180,6 @@ def test(project_id, crud):
             return fetchResult
         elif crud == 'update':
             # update is same as read. But use 'read' or 'update' just doesn't work!
-            print(crud)
             fetchResult = fetch_document('project', 'project_no', project_id)
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
@@ -178,6 +192,37 @@ def test(project_id, crud):
     else:
             "test failed"
 
+@route('/part/<part_id>/<crud>', method=['GET', 'POST'])
+@view('part.html', template_lookup=['templates'])
+def part(part_id, crud):
+
+    userDoc = get_session(request)
+
+    if userDoc['user_group'] in ['purchasing']:
+
+        if crud == 'create':
+            fetchResult = fetch_document('part', 'part_id', '1')
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            return fetchResult
+        elif crud == 'read':
+            fetchResult = fetch_document('part', 'part_id', part_id)
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            return fetchResult
+        elif crud == 'update':
+            # update is same as read. But use 'read' or 'update' just doesn't work!
+            fetchResult = fetch_document('part', 'part_id', part_id)
+            is_crud = f'is_{crud}'
+            fetchResult[is_crud] = True
+            return fetchResult
+        elif crud == 'save':
+            requestForm = request.forms
+            remove_document('part', 'part_id', part_id)
+            saveResult = insert_document('part', requestForm)
+            redirect ("/main")
+    else:
+            "test failed"
 
 @route('/quotation/<part_id>/<quotation_id>/<crud>', method=['GET', 'POST'])
 @view('quotation.html', template_lookup=['templates'])
@@ -189,7 +234,7 @@ def quotation(part_id, quotation_id, crud):
         userName = userDoc['user_name']
 
         if crud == 'create':
-            fetchResult = fetch_document('quotation', '_id', ObjectId("5c9255bff4a2c029246a69aa")) # should put the id of suggested value
+            fetchResult = fetch_document('quotation', 'author', 'suggestion')
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
             fetchResult['part_id'] = part_id
@@ -212,6 +257,20 @@ def quotation(part_id, quotation_id, crud):
             insert_document('quotation', requestForm)
             return 'saved'
         pass
+
+@route('/compare/<part_id>')
+@view('compare.html', template_lookup=['templates'])
+def compare(part_id):
+    Card = collections.namedtuple('Card', ['rank', 'suit'])
+    ace = Card('blace', 'first')
+    return {'ace' : {'rank' : 'blace', 'suit' : 'first'}}
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% set JumboText_h1 = 'project_name' + " Overview" %}
+{% set JumboText_p1 = 'is read' %}
+{% set JumboText_p2 = None %}
+
+{% if is_create %}
+{% set valueToggle = "placeholder" %}
+{% set readonlyToggle = "" %}
+{% set btnText = "create" %}
+{% set btnDirection = "/part/new/save" %}
+{% endif %}
+
+
+{% if is_read %}
+{% set valueToggle = "placeholder" %}
+{% set readonlyToggle = "readonly" %}
+{% set btnText = "click to change" %}
+{% set btnDirection = "/part/" + part_id + "/update" %}
+{% endif %}
+
+{% if is_update %}
+{% set valueToggle = "value" %}
+{% set readonlyToggle = "" %}
+{% set btnText = "confirm update" %}
+{% set btnDirection = "/part/" + part_id + "/save" %}
+{% endif %}
+
+{% block content %}
+
+<form action={{ btnDirection }} method="POST">
+
+
+    <div class="form-row">
+      <h1>Part Information
+      </h1>
+      <legend>Basic
+      </legend>
+
+        <div class="form-group col-md-2">
+          <label for="current_pn">Current PN
+          </label>
+      <input type="text" class="form-control" name="current_pn" {{ valueToggle }}={{ current_pn }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="part_id">Part_id
+          </label>
+      <input type="text" class="form-control" name="part_id" {{ valueToggle }}={{ part_id }} readonlyToggle >
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="description">Description
+          </label>
+      <input type="text" class="form-control" name="description" {{ valueToggle }}={{ description }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="mtl_group">Material Group
+          </label>
+            <input type="text" class="form-control" name="mtl_group" {{ valueToggle }}={{ mtl_group }} {{ readonlyToggle }}>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+      <legend>Timing Plan
+      </legend>
+
+        <div class="form-group col-md-2">
+          <label for="rfq_date">RFQ Date
+          </label>
+      <input type="text" class="form-control" name="rfq_date" {{ valueToggle }}={{ rfq_date }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="fs_date">FS Close Date
+          </label>
+      <input type="text" class="form-control" name="fs_date" {{ valueToggle }}={{ fs_date }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="log_date">Logistic Close Date
+          </label>
+      <input type="text" class="form-control" name="log_date" {{ valueToggle }}={{ log_date }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="sourcing_date">Sourcing Date
+          </label>
+      <input type="text" class="form-control" name="sourcing_date" {{ valueToggle }}={{ sourcing_date }} {{ readonlyToggle }}>
+        </div>
+    </div>
+
+    <div class="form-row">
+      <legend>Sourcing Strategy
+      </legend>
+
+        <div class="form-group col-md-2">
+          <label for="risk_analysis">Risk Analysis Result
+          </label>
+          <input type="text" class="form-control" name="risk_analysis" {{ valueToggle }}={{ risk_analysis }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="yearly_pvo">Yearly PVO in KEUR
+          </label>
+      <input type="text" class="form-control" name="yearly_pvo" {{ valueToggle }}={{ yearly_pvo }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="sourcing_level">Sourcing Level
+            </label>
+      <input type="text" class="form-control" name="sourcing_level" {{ valueToggle }}={{ sourcing_level }} {{ readonlyToggle }}>
+        </div>
+
+    </div>
+
+
+    <div class="form-row">
+      <legend>Potential Suppliers
+      </legend>
+
+        <div class="form-group col-md-2">
+          <label for="supplier_1">Supplier One
+          </label>
+      <input type="text" class="form-control" name="supplier_1" {{ valueToggle }}={{ supplier_1 }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="supplier_2">Supplier Two
+          </label>
+      <input type="text" class="form-control" name="supplier_2" {{ valueToggle }}={{ supplier_2 }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="supplier_3">Supplier Three
+          </label>
+      <input type="text" class="form-control" name="supplier_3" {{ valueToggle }}={{ supplier_3 }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="supplier_4">Supplier Four
+          </label>
+      <input type="text" class="form-control" name="supplier_4" {{ valueToggle }}={{ supplier_4 }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="supplier_5">Supplier Five
+          </label>
+      <input type="text" class="form-control" name="supplier_5" {{ valueToggle }}={{ supplier_5 }} {{ readonlyToggle }}>
+        </div>
+
+    </div>
+
+
+ <hr>
+
+ <input class="btn btn-primary btn-lg btn-block" type="submit" name="submit" value="{{ btnText }}">
+
+<br>
+
+  </form>
+{% endblock %}

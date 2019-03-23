@@ -7,7 +7,6 @@
 {% if is_create %}
 {% set valueToggle = "placeholder" %}
 {% set readonlyToggle = "" %}
-{% set foo = "foo" %}
 {% set btnText = "create" %}
 {% set btnDirection = "/quotation/" + part_id + "/new/save" %}
 {% endif %}
@@ -16,17 +15,15 @@
 {% if is_read %}
 {% set valueToggle = "placeholder" %}
 {% set readonlyToggle = "readonly" %}
-{% set foo = "foo" %}
-{% set btnText = "click to update" %}
+{% set btnText = "click to change" %}
 {% set btnDirection = "/quotation/" + part_id + "/" + quotation_id + "/update" %}
 {% endif %}
 
 {% if is_update %}
 {% set valueToggle = "value" %}
 {% set readonlyToggle = "" %}
-{% set foo = "foo" %}
 {% set btnText = "confirm update" %}
-{% set btnDirection = "/quotation/" + part_id + "/" + "update/save" %}
+{% set btnDirection = "/quotation/" + part_id + "/" + quotation_id + "/save" %}
 {% endif %}
 
 {% block content %}
@@ -50,57 +47,57 @@
 
         <div class="form-group col-md-2">
       <label for="part_weight">Part Weight</label>
-      <input type="text" class="form-control" name="part_weight" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="part_weight" {{ valueToggle }}={{ part_weight }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="runner_weight">Runner Weight/part</label>
-      <input type="text" class="form-control" name="runner_weight" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="runner_weight" {{ valueToggle }}={{ runner_weight }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="wastage">Wastage</label>
-      <input type="text" class="form-control" name="wastage" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="wastage" {{ valueToggle }}={{ wastage }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="resin_moq">Resin MOQ</label>
-      <input type="text" class="form-control" name="resin_moq" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="resin_moq" {{ valueToggle }}={{ resin_moq }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="resin_price">Resin Price</label>
-      <input type="text" class="form-control" name="resin_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="resin_price" {{ valueToggle }}={{ resin_price }} {{ readonlyToggle }}>
         </div>
 
     </div>
 
     <div class="form-row">
-        <legend>Injection Process</legend {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+        <legend>Injection Process</legend>
 
         <div class="form-group col-md-2">
       <label for="cavity">Cavity</label>
-      <input type="text" class="form-control" name="cavity" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="cavity" {{ valueToggle }}={{ cavity }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="machine_tonnage">Machine Tonnage</label>
-      <input type="text" class="form-control" name="machine_tonnage" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="machine_tonnage" {{ valueToggle }}={{ machine_tonnage }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="machine_rate">Machine Rate/Hour</label>
-      <input type="text" class="form-control" name="machine_rate" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="machine_rate" {{ valueToggle }}={{ machine_rate }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="cycle_time">Cycle Time</label>
-      <input type="text" class="form-control" name="cycle_time" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="cycle_time" {{ valueToggle }}={{ cycle_time }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="reject_allow">Reject allow</label>
-      <input type="text" class="form-control" name="reject_allow" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="reject_allow" {{ valueToggle }}={{ reject_allow }} {{ readonlyToggle }}>
         </div>
     </div>
 
@@ -108,23 +105,23 @@
         <legend>Second Process</legend>
 
         <div class="form-group col-md-2">
-          <label for="2ndp_mtl">Material Name</label>
-      <input type="text" class="form-control" name="2ndp_mtl" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+          <label for="secpro_mtl">Material Name</label>
+      <input type="text" class="form-control" name="2ndp_mtl" {{ valueToggle }}={{ secpro_mtl }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
-      <label for="2ndp_mtl_cost">Material Cost</label>
-      <input type="text" class="form-control" name="2ndp_mtl_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="secpro_mtl_cost">Material Cost</label>
+      <input type="text" class="form-control" name="secpro_mtl_cost" {{ valueToggle }}={{ secpro_mtl_cost }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
-      <label for="2ndp_process">Process Name</label>
-      <input type="text" class="form-control" name="2ndp_procss" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="secpro_process_name">Process Name</label>
+      <input type="text" class="form-control" name="secpro_process_name" {{ valueToggle }}={{ secpro_process_name }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
-      <label for="2ndp_process_cost">Process Cost</label>
-      <input type="text" class="form-control" name="2ndp_process_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="secpro_process_cost">Process Cost</label>
+      <input type="text" class="form-control" name="secpro_process_cost" {{ valueToggle }}={{ secpro_process_cost }} {{ readonlyToggle }}>
         </div>
 
     </div>
@@ -135,22 +132,22 @@
 
         <div class="form-group col-md-2">
       <label for="part_moq">Part MOQ</label>
-      <input type="text" class="form-control" name="part_moq" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="part_moq" {{ valueToggle }}={{ part_moq }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="packaging_concept">Packaging Concept</label>
-      <input type="text" class="form-control" name="packaging_concept" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="packaging_concept" {{ valueToggle }}={{ packaging_concept }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="packaging_cost">Packaging Cost</label>
-      <input type="text" class="form-control" name="packaging_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="packaging_cost" {{ valueToggle }}={{ packaging_cost }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="cycle_time">Transportation Cost</label>
-      <input type="text" class="form-control" name="cycle_time" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="cycle_time" {{ valueToggle }}={{ cycle_time }} {{ readonlyToggle }}>
         </div>
 
     </div>
@@ -160,12 +157,12 @@
 
         <div class="form-group col-md-2">
       <label for="profit">Profit</label>
-      <input type="text" class="form-control" name="profit" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="profit" {{ valueToggle }}={{ profit }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="overhead">Overhead</label>
-      <input type="text" class="form-control" name="overhead" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="overhead" {{ valueToggle }}={{ overhead }} {{ readonlyToggle }}>
         </div>
     </div>
 
@@ -178,22 +175,22 @@
         <legend>Injection Tooling</legend>
         <div class="form-group col-md-2">
       <label for="tooling_lifetime">Tooling Lifetime</label>
-      <input type="text" class="form-control" name="tooling_lifetime" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="tooling_lifetime" {{ valueToggle }}={{ tooling_lifetime }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
-      <label for="tooling_cost">Tooling Cost</label>
-      <input type="text" class="form-control" name="tooling_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="injection_tooling_cost">Injection Tooling Cost</label>
+      <input type="text" class="form-control" name="injection_tooling_cost" {{ valueToggle }}={{ injection_tooling_cost }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="measuring_cost">Measuring Cost</label>
-      <input type="text" class="form-control" name="measuring_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="measuring_cost" {{ valueToggle }}={{ measuring_cost }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-2">
       <label for="copy_tooling_cost">Copy Tooling Cost</label>
-      <input type="text" class="form-control" name="copy_tooling_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="copy_tooling_cost" {{ valueToggle }}={{ copy_tooling_cost }} {{ readonlyToggle }}>
         </div>
 
     </div>
@@ -201,23 +198,23 @@
  <div class="form-row">
         <legend>Additional</legend>
         <div class="form-group col-md-3">
-      <label for="tooling_lifetime">Extra Tooling Name</label>
-      <input type="text" class="form-control" name="tooling_lifetime" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="extra_tooling_name">Extra Tooling Name</label>
+      <input type="text" class="form-control" name="extra_tooling_name" {{ valueToggle }}={{ extra_tooling_name }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="tooling_cost">Extra Tooling Cost</label>
-      <input type="text" class="form-control" name="tooling_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="extra_tooling_cost">Extra Tooling Cost</label>
+      <input type="text" class="form-control" name="extra_tooling_cost" {{ valueToggle }}={{ extra_tooling_cost }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="copy_tooling_cost">Extra Investment Name</label>
-      <input type="text" class="form-control" name="copy_tooling_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="extra_invest_name">Extra Investment Name</label>
+      <input type="text" class="form-control" name="extra_invest_name" {{ valueToggle }}={{ extra_invest_name }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="copy_tooling_cost">Extra Investment Cost</label>
-      <input type="text" class="form-control" name="copy_tooling_cost" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="extra_invest_cost">Extra Investment Cost</label>
+      <input type="text" class="form-control" name="extra_invest_cost" {{ valueToggle }}={{ extra_invest_cost }} {{ readonlyToggle }}>
         </div>
     </div>
 
@@ -228,47 +225,52 @@
         <legend>Yearly Price in 100pcs</legend>
         <div class="form-group col-md-1">
       <label for="year1_price">Year-1 Price</label>
-      <input type="text" class="form-control" name="year1_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year1_price" {{ valueToggle }}={{ year1_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year2_price">Year-2 Price</label>
-      <input type="text" class="form-control" name="year2_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year2_price" {{ valueToggle }}={{ year2_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year3_price">Year-3 Price</label>
-      <input type="text" class="form-control" name="year3_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year3_price" {{ valueToggle }}={{ year3_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year4_price">Year-4 Price</label>
-      <input type="text" class="form-control" name="year4_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year4_price" {{ valueToggle }}={{ year4_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year5_price">Year-5 Price</label>
-      <input type="text" class="form-control" name="year5_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year5_price" {{ valueToggle }}={{ year5_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year6_price">Year-6 Price</label>
-      <input type="text" class="form-control" name="year6_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year6_price" {{ valueToggle }}={{ year6_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year7_price">Year-7 Price</label>
-      <input type="text" class="form-control" name="year7_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year7_price" {{ valueToggle }}={{ year7_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year8_price">Year-8 Price</label>
-      <input type="text" class="form-control" name="year9_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year8_price" {{ valueToggle }}={{ year8_price }} {{ readonlyToggle }}>
+        </div>
+
+        <div class="form-group col-md-1">
+            <label for="year9_price">Year-9 Price</label>
+            <input type="text" class="form-control" name="year9_price" {{ valueToggle }}={{ year9_price }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-1">
       <label for="year10_price">Year-10 Price</label>
-      <input type="text" class="form-control" name="year10_price" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <input type="text" class="form-control" name="year10_price" {{ valueToggle }}={{ year10_price }} {{ readonlyToggle }}>
         </div>
  </div>
 
@@ -276,23 +278,23 @@
  <div class="form-row">
         <legend>Quick Saving</legend>
         <div class="form-group col-md-3">
-      <label for="1st_qc_amount">1st 50% QS Amount</label>
-      <input type="text" class="form-control" name="1st_qc_amount" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="first_qc_amount">First 50% QS Amount</label>
+      <input type="text" class="form-control" name="first_qc_amount" {{ valueToggle }}={{ first_qc_amount }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="1st_qc_date">1st 50% QS Date</label>
-      <input type="text" class="form-control" name="1st_qc_date" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="first_qc_date">First 50% QS Date</label>
+      <input type="text" class="form-control" name="first_qc_date" {{ valueToggle }}={{ first_qc_date }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="2nd_qc_amount">2nd 50% QS Amount</label>
-      <input type="text" class="form-control" name="2nd_qc_amount" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="second_qc_amount">Second 50% QS Amount</label>
+      <input type="text" class="form-control" name="second_qc_amount" {{ valueToggle }}={{ second_qc_amount }} {{ readonlyToggle }}>
         </div>
 
         <div class="form-group col-md-3">
-      <label for="2nd_qc_date">2nd 50% QS Date</label>
-      <input type="text" class="form-control" name="2nd_qc_date" {{ valueToggle }}={{ foo }} {{ readonlyToggle }}>
+      <label for="second_qc_date">Second 50% QS Date</label>
+      <input type="text" class="form-control" name="second_qc_date" {{ valueToggle }}={{ second_qc_date }} {{ readonlyToggle }}>
         </div>
 
  </div>
