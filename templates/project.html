@@ -1,24 +1,62 @@
 {% extends "base.html" %}
 
-{% set JumboText_h1 = project_name + " Overview" %}
-{% set JumboText_p1 = "Plan Sourcing Date: " + project_no %}
-{% set JumboText_p2 = "Plan Sourcing Date: " + project_no %}
-{% set JumboText_p3 = "Plan Sourcing Date: " + project_no %}
+{% set JumboText_h1 = project_name %}
+{% set JumboBtnText = "Detail Project Info" %}
+{% set JumboBtnLink = "/project/" + project_no + "/info/read" %}
+
+{% if is_supplier %}
+{% set styleToggle = "style='display: none'" %}
+{% set displayToggleS = "d-none" %}
+{% endif %}
 
 {% block content %}
 <div class="row">
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
+                  <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
                 <div class="card-body">
-                  <p class="card-text">123.456-78 Operation Element</p>
+                    <p class="card-text">{{ part1_pn }} {{ part1_description }} {{ part1_usage }}pc
+                    </p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Price</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Technical</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Logistic</button>
+                      <div class="btn-group">
+
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part1_id }}/read" role="button">Strategy
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggle }}" href="/quotation/{{ part1_id }}/read" role="button">Quotation
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href=# role="button">Price
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
+                        </a>
                     </div>
-                    <small class="text-muted">9 days</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
+                <div class="card-body">
+                    <p class="card-text">{{ part2_pn }} {{ part2_description }} {{ part2_usage }}pc
+                    </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+
+                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part2_id }}/read" role="button">Strategy
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
+                        </a>
+                    </div>
+                    <small class="text-muted">9 days
+                    </small>
                   </div>
                 </div>
               </div>
@@ -26,32 +64,76 @@
 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
+                  <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
                 <div class="card-body">
-                  <p class="card-text">Here put the brief introduction of the part.</p>
+                    <p class="card-text">{{ part3_pn }} {{ part3_description }} {{ part3_usage }}pc
+                    </p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Price Status</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">FS Status</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Log Status</button>
+                      <div class="btn-group">
+
+                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part3_id }}/read" role="button">Strategy
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
+                        </a>
                     </div>
-                    <small class="text-muted">9 days</small>
+                    <small class="text-muted">9 days
+                    </small>
                   </div>
                 </div>
               </div>
             </div>
 
+
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
+                  <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
                 <div class="card-body">
-                  <p class="card-text">Here put the brief introduction of the part.</p>
+                    <p class="card-text">{{ part4_pn }} {{ part4_description }} {{ part4_usage }}pc
+                    </p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Price Compare</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Other Status</button>
+                      <div class="btn-group">
+
+                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part1_id }}/read" role="button">Strategy
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
+                        </a>
                     </div>
-                    <small class="text-muted">9 days</small>
+                    <small class="text-muted">9 days
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                  <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
+                <div class="card-body">
+                    <p class="card-text">{{ part5_pn }} {{ part5_description }} {{ part5_usage }}pc
+                    </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+
+                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part5_id }}/read" role="button">Strategy
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
+                        </a>
+                    </div>
+                    <small class="text-muted">9 days
+                    </small>
                   </div>
                 </div>
               </div>

@@ -15,8 +15,6 @@ redirect = bottle.redirect
 view = bottle.jinja2_view
 static_file = bottle.static_file
 
-uuid = uuid.uuid4
-
 ObjectId = bson.ObjectId
 
 MongoClient = pymongo.MongoClient
@@ -25,6 +23,10 @@ MongoClient = pymongo.MongoClient
 # connect to db
 client = MongoClient()
 db = client.PPT
+
+def six_digit_id_generator():
+    uuidString = str(uuid.uuid4())
+    return uuidString[:6]
 
 
 def insert_document(collection_name, dict):
@@ -72,7 +74,7 @@ def save_project(projectInfo):
 
 def create_session(user_name):
     '''create a uuid string as token and go to user_name collection and store the token'''
-    token = str(uuid())
+    token = str(uuid.uuid4())
     user = db.user
     # store the token at certain user document
     query = {'user_name': user_name}
@@ -117,22 +119,38 @@ def main():
         userGroup = userDoc['user_group']
         userName = userDoc['user_name']
 
-        # extract all project names according to current userGroup and userName
-        query = {userGroup : userName}
-        fields = ['project_no', 'project_name', 't3_date', 't4_date']
-        findInfoResult = find_info('project', query, fields)
+        if userGroup == 'supplier':
+            # query =  { '$or': [{ f'supplier_{n}': userName } for n in range(1,6)] }
+            query =  { '$or': [{ 'supplier_1': userName }, { 'supplier_2': userName }, { 'supplier_3': userName }, { 'supplier_4': userName }, { 'supplier_5': userName } ] }
+            cursor = db.part.find(query)
+            resultDict = {'userName': userName} # transfer username and then put project info inside
+            cursorList = list(cursor)
+            print(cursorList)
+            for n in range(len(cursorList)):
+                resultDict[f'project_name{n + 1}'] = cursorList[n]["project_name"]
+                resultDict[f'project_no{n + 1}'] = cursorList[n]["project_no"]
+                resultDict[f'sourcing_date{n + 1}'] = cursorList[n]["sourcing_date"]
 
-        # put a no after every attribute like: project_name1, t3_date2, t4_date3 ... # TODO later use project1.attr to transfer. Then use for loop to expand
-        resultDict = {'userName': userName}
-        n = 1
-        for dict in findInfoResult:
-            for field in fields:
-                key = str(field) + str(n)
-                value = dict[field]
-                resultDict[key] = value
-            n = n + 1
+            print (resultDict)
+            resultDict['is_supplier'] = True
+            return resultDict
+        else:
+            # extract all project names according to current userGroup and userName
+            query = {userGroup : userName}
+            fields = ['project_no', 'project_name', 't3_date', 't4_date']
+            findInfoResult = find_info('project', query, fields)
 
-        return resultDict
+            # put a no after every attribute like: project_name1, t3_date2, t4_date3 ... # TODO later use project1.attr to transfer. Then use for loop to expand
+            resultDict = {'userName': userName} # transfer username and then put project info inside
+            n = 1
+            for dict in findInfoResult:
+                for field in fields:
+                    key = str(field) + str(n)
+                    value = dict[field]
+                    resultDict[key] = value
+                n = n + 1
+
+            return resultDict
     else:
         redirect("/login")
 
@@ -144,14 +162,16 @@ def overview(project_id):
     '''an overview of certain project. Readonly. No form necessary.'''
 
     userDoc = get_session(request)
+    userGroup = userDoc['user_group']
 
-    if userDoc['user_group'] in ['purchasing']:
+    if userGroup in ['purchasing', 'supplier', 'pjm']: # may remove if
 
         # TODO add a guard to make sure project purchasing name = userName
 
         # fetch basic project Info
         fetchProjectInfo = fetch_document('project', 'project_no', project_id)
 
+        fetchProjectInfo[f"is_{userGroup}"] = True
         return fetchProjectInfo
     else:
         return 'Purchasing ONLY'
@@ -172,6 +192,8 @@ def projectinfo(project_id, crud):
             fetchResult = fetch_document('project', 'project_no', 'suggestion')
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
+            idDict = {f'part{n}_id': six_digit_id_generator() for n in range(1,6)}
+            fetchResult.update(idDict)
             return fetchResult
         elif crud == 'read':
             fetchResult = fetch_document('project', 'project_no', project_id)
@@ -198,18 +220,45 @@ def part(part_id, crud):
 
     userDoc = get_session(request)
 
-    if userDoc['user_group'] in ['purchasing']:
+    if userDoc['user_group'] in ['purchasing', 'supplier']:
 
         if crud == 'create':
-            fetchResult = fetch_document('part', 'part_id', '1')
+            # need to find the project with partn_id equals part_id here? Have to be like this?
+            query =  { '$or': [ { 'part1_id': part_id }, { 'part2_id': part_id }, { 'part3_id': part_id }, { 'part4_id': part_id }, { 'part5_id': part_id }, ] }
+            fetchResult = db.project.find_one(query)
+            print(f"------------{fetchResult}-----------")
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
+            fetchResult['part_id'] = part_id # because only partn_id will be return
+
+            # get lifetime volume for PVO calculation
+            total_volume = 0
+            lifetime = 0
+            for year in range(1,11):
+                if fetchResult[f'year{year}_volume'] != '0':
+                    total_volume += int(fetchResult[f'year{year}_volume'])
+                    lifetime += 1
+
+            average_volume = total_volume / lifetime
+
+            # check which part is this part and return its current_pn
+            for n in range(1,6):
+                if fetchResult[f'part{n}_id'] == part_id:
+                    fetchResult['current_pn'] = fetchResult[f'part{n}_pn']
+                    fetchResult['yearly_pvo'] = average_volume * float(fetchResult[f'part{n}_target_price'])
+
             return fetchResult
+
         elif crud == 'read':
             fetchResult = fetch_document('part', 'part_id', part_id)
-            is_crud = f'is_{crud}'
-            fetchResult[is_crud] = True
-            return fetchResult
+
+            # if not exist yet, redirect to create
+            if fetchResult:
+                is_crud = f'is_{crud}'
+                fetchResult[is_crud] = True
+                return fetchResult
+            else:
+                redirect(f"/part/{part_id}/create")
         elif crud == 'update':
             # update is same as read. But use 'read' or 'update' just doesn't work!
             fetchResult = fetch_document('part', 'part_id', part_id)
@@ -224,9 +273,9 @@ def part(part_id, crud):
     else:
             "test failed"
 
-@route('/quotation/<part_id>/<quotation_id>/<crud>', method=['GET', 'POST'])
+@route('/quotation/<part_id>/<crud>', method=['GET', 'POST'])
 @view('quotation.html', template_lookup=['templates'])
-def quotation(part_id, quotation_id, crud):
+def quotation(part_id, crud):
 
     userDoc = get_session(request)
 
@@ -247,10 +296,15 @@ def quotation(part_id, quotation_id, crud):
             return fetchResult
         elif crud == 'read':
             fetchResult = fetch_document('quotation', '_id', ObjectId(quotation_id))
-            is_crud = f'is_{crud}'
-            fetchResult[is_crud] = True
-            fetchResult['quotation_id'] = quotation_id
-            return fetchResult
+
+            # if not exist yet, redicret to create
+            if fetchResult:
+                is_crud = f'is_{crud}'
+                fetchResult[is_crud] = True
+                fetchResult['quotation_id'] = quotation_id
+                return fetchResult
+            else:
+                redirect(f"/quotation/{part_id}/create")
         elif crud == 'save':
             requestForm = request.forms
             requestForm['author'] = userName
@@ -261,8 +315,6 @@ def quotation(part_id, quotation_id, crud):
 @route('/compare/<part_id>')
 @view('compare.html', template_lookup=['templates'])
 def compare(part_id):
-    Card = collections.namedtuple('Card', ['rank', 'suit'])
-    ace = Card('blace', 'first')
     return {'ace' : {'rank' : 'blace', 'suit' : 'first'}}
 
 
@@ -282,3 +334,4 @@ app = bottle.default_app()
 # TODO mongodb has uuid support
 # TODO: if the project_id changes, how to solve? if there's a blank in project id... 
 # TODO: thinking about use class to contain data (Class Quotation/Project...)
+# TODO: minimize the return fields

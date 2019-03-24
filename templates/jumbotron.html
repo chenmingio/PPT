@@ -1,10 +1,59 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-3">{{ JumboText_h1 }}</h1>
-        <p>{{ JumboText_p1 }}</p>
-        <p>{{ JumboText_p2 }}</p>
-        <p>{{ JumboText_p3 }}</p>
-        <p><a class="btn btn-outline-primary" href={{ JumboBtnLink }} role="button">{{ JumboBtnText }}</a></p>
+      <h1 class="display-3">{{ JumboText_h1 }}</h1>
+      <div class="container" {{ btnGroupToggle }}>
+<div class="btn-group">
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+       Timing
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item">T3 Date: {{ t3_date }}
+      </a>
+      <a class="dropdown-item">T4 Date: {{ t4_date }}
+      </a>
+      <a class="dropdown-item">PV Date: {{ pv_supplier }}
+      </a>
+      <a class="dropdown-item">SOP Date: {{ sop_hella }}
+      </a>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+       Volume
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item">Year-1: {{ year1_volume }}K
+      </a>
+      <a class="dropdown-item">Year-2: {{ year2_volume }}K
+      </a>
+      <a class="dropdown-item">Year-3: {{ year3_volume }}K
+      </a>
+      <a class="dropdown-item">Year-4: {{ year4_volume }}K
+      </a>
+      <a class="dropdown-item">Year-5: {{ year5_volume }}K
+      </a>
+      <a class="dropdown-item">Year-6: {{ year6_volume }}K
+      </a>
+      <a class="dropdown-item">Year-7: {{ year7_volume }}K
+      </a>
+      <a class="dropdown-item">Year-8: {{ year8_volume }}K
+      </a>
+      <a class="dropdown-item">Year-9: {{ year9_volume }}K
+      </a>
+      <a class="dropdown-item">Year-10: {{ year10_volume }}K
+      </a>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-outline-primary {{ displayToggleS }}" onclick="window.location.href = '{{ JumboBtnLink }}';" }}>{{ JumboBtnText }}
+  </button>
+
+</div>
+
+</div>
     </div>
 </div>
+

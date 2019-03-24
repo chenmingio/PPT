@@ -2,11 +2,11 @@
 
 
 {% set JumboText_h1 = userName + " , Welcome Home." %}
-{% set JumboText_p1 = "Boost your source" %}
-{% set JumboText_p2 = "" %}
-{% set JumboBtnText = "Create Project »" %}
-{% set JumboBtnLink = "/project/new/info/create" %}
+{% set btnGroupToggle = "style='display: none'" %}
 
+{% if is_supplier %}
+{% set styleToggle = "style='display: none'" %}
+{% endif %}
 
 {% block content %}
 
