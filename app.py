@@ -125,13 +125,11 @@ def main():
             cursor = db.part.find(query)
             resultDict = {'userName': userName} # transfer username and then put project info inside
             cursorList = list(cursor)
-            print(cursorList)
             for n in range(len(cursorList)):
                 resultDict[f'project_name{n + 1}'] = cursorList[n]["project_name"]
                 resultDict[f'project_no{n + 1}'] = cursorList[n]["project_no"]
                 resultDict[f'sourcing_date{n + 1}'] = cursorList[n]["sourcing_date"]
 
-            print (resultDict)
             resultDict['is_supplier'] = True
             return resultDict
         else:
@@ -226,7 +224,6 @@ def part(part_id, crud):
             # need to find the project with partn_id equals part_id here? Have to be like this?
             query =  { '$or': [ { 'part1_id': part_id }, { 'part2_id': part_id }, { 'part3_id': part_id }, { 'part4_id': part_id }, { 'part5_id': part_id }, ] }
             fetchResult = db.project.find_one(query)
-            print(f"------------{fetchResult}-----------")
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
             fetchResult['part_id'] = part_id # because only partn_id will be return
@@ -342,7 +339,6 @@ def compare(part_id):
                 compareList[f'supplier_{n}'] = quotation[0]
             else:
                 compareList[f'supplier_{n}'] = {"supplier_name" : supplierName}
-            print(compareList)
         return compareList
     else:
         return 'only for purchasing'
