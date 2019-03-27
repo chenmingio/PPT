@@ -26,7 +26,7 @@ db = client.PPT
 
 def six_digit_id_generator():
     uuidString = str(uuid.uuid4())
-    return uuidString[:6]
+    return uuidString[:7]
 
 
 def insert_document(collection_name, dict):
@@ -283,25 +283,34 @@ def quotation(part_id, crud):
         userName = userDoc['user_name']
 
         if crud == 'create':
+            uuidString = str(uuid.uuid4())
             fetchResult = fetch_document('quotation', 'author', 'suggestion')
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
             fetchResult['part_id'] = part_id
+            fetchResult['quotation_id'] = uuidString[:7]
             return fetchResult
         elif crud == 'update':
-            fetchResult = fetch_document('quotation', '_id', ObjectId(quotation_id))
+            # find document in quotaiton where partid is partid and author is username
+            query =  { '$and': [ { 'part_id': part_id }, { 'author': userName}] }
+            fetchResult = list(db.quotation.find(query))[-1]
+            uuidString = str(uuid.uuid4())
+            newQuotationId = uuidString[:7]
+            fetchResult['quotation_id'] = newQuotationId
             is_crud = f'is_{crud}'
             fetchResult[is_crud] = True
-            fetchResult['part_id'] = part_id
             return fetchResult
         elif crud == 'read':
-            fetchResult = fetch_document('quotation', '_id', ObjectId(quotation_id))
-
+            # find document in quotaiton where partid is partid and author is username
+            query =  { '$and': [ { 'part_id': part_id }, { 'author': userName}] }
+            fetchResults = list(db.quotation.find(query))
             # if not exist yet, redicret to create
-            if fetchResult:
+            if fetchResults:
+                fetchResult = fetchResults[-1]
                 is_crud = f'is_{crud}'
                 fetchResult[is_crud] = True
-                fetchResult['quotation_id'] = quotation_id
+                quotationDate = str(fetchResult['_id'].generation_time)
+                fetchResult['quotation_date']
                 return fetchResult
             else:
                 redirect(f"/quotation/{part_id}/create")
@@ -309,13 +318,34 @@ def quotation(part_id, crud):
             requestForm = request.forms
             requestForm['author'] = userName
             insert_document('quotation', requestForm)
-            return 'saved'
-        pass
+            redirect ("/main")
+    else:
+        return "only for purchaing and supplier"
 
 @route('/compare/<part_id>')
 @view('compare.html', template_lookup=['templates'])
 def compare(part_id):
-    return {'ace' : {'rank' : 'blace', 'suit' : 'first'}}
+
+    userDoc = get_session(request)
+
+    if userDoc['user_group'] in ['purchasing']:
+
+        # get supplier names from part/strategy page:
+        result = fetch_document('part', 'part_id', part_id)
+        compareList = {}
+        for n in range(1, 6):
+            supplierName = result[f'supplier_{n}']
+            query =  { '$and': [ { 'part_id': part_id }, { 'author': supplierName}] }
+            quotation = list(db.quotation.find(query).sort('_id', pymongo.DESCENDING))
+            if quotation:
+                quotation[0]['supplier_name'] = supplierName
+                compareList[f'supplier_{n}'] = quotation[0]
+            else:
+                compareList[f'supplier_{n}'] = {"supplier_name" : supplierName}
+            print(compareList)
+        return compareList
+    else:
+        return 'only for purchasing'
 
 
 

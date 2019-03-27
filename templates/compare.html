@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 
 {% set JumboText_h1 = 'project_name' + " Overview" %}
-{% set JumboText_p1 = ace.rank %}
-{% set JumboText_p2 = None %}
+{% set btnGroupToggle = "d-none" %}
 
+{% if supplier_1.second_qc_amount %}
+{% set supplier1QuickSaving = supplier_1.first_qc_amount + supplier_1.second_qc_amount %}
+{% endif %}
+{% if supplier_2.second_qc_amount %}
+{% set supplier2QuickSaving = supplier_2.first_qc_amount + supplier_2.second_qc_amount %}
+{% endif %}
+{% if supplier_3.second_qc_amount %}
+{% set supplier3QuickSaving = supplier_3.first_qc_amount + supplier_3.second_qc_amount %}
+{% endif %}
+{% if supplier_4.second_qc_amount %}
+{% set supplier4QuickSaving = supplier_4.first_qc_amount + supplier_4.second_qc_amount %}
+{% endif %}
+{% if supplier_5.second_qc_amount %}
+{% set supplier5QuickSaving = supplier_5.first_qc_amount + supplier_5.second_qc_amount %}
+{% endif %}
 
 {% block content %}
 
@@ -39,7 +53,7 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
 
-  <h2>Price Compare
+    <h2>Price Compare
   </h2>
           <div class="table-responsive">
             <table class="table table-hover table-sm">
@@ -47,13 +61,15 @@
                 <tr>
                   <th>#
                   </th>
-                  <th>SupplierA
+                  <th>{{supplier_1.supplier_name}}
                   </th>
-                  <th>SupplierB
+                  <th>{{supplier_2.supplier_name}}
                   </th>
-                  <th>SupplierC
+                  <th>{{supplier_3.supplier_name}}
                   </th>
-                  <th>SupplierD
+                  <th>{{supplier_4.supplier_name}}
+                  </th>
+                  <th>{{supplier_5.supplier_name}}
                   </th>
                 </tr>
               </thead>
@@ -61,121 +77,141 @@
                 <tr>
                   <td>Year-1 Price
                   </td>
-                  <td>torquent
+                  <td>{{supplier_1.year1_price}}
                   </td>
-                  <td>per
+                  <td>{{supplier_2.year1_price}}
                   </td>
-                  <td>conubia
+                  <td>{{supplier_3.year1_price}}
                   </td>
-                  <td>nostra
+                  <td>{{supplier_4.year1_price}}
+                  </td>
+                  <td>{{supplier_5.year1_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-2 Price
                   </td>
-                  <td>per
+                  <td>{{supplier_1.year2_price}}
                   </td>
-                  <td>inceptos
+                  <td>{{supplier_2.year2_price}}
                   </td>
-                  <td>himenaeos
+                  <td>{{supplier_3.year2_price}}
                   </td>
-                  <td>Curabitur
+                  <td>{{supplier_4.year2_price}}
+                  </td>
+                  <td>{{supplier_5.year2_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-3 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year3_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year3_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year3_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year3_price}}
+                  </td>
+                  <td>{{supplier_5.year3_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-4 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year4_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year4_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year4_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year4_price}}
+                  </td>
+                  <td>{{supplier_5.year4_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-5 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year5_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year5_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year5_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year5_price}}
+                  </td>
+                  <td>{{supplier_5.year5_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-6 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year6_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year6_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year6_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year6_price}}
+                  </td>
+                  <td>{{supplier_5.year6_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-7 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year7_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year7_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year7_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year7_price}}
+                  </td>
+                  <td>{{supplier_5.year7_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-8 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year8_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year8_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year8_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year8_price}}
+                  </td>
+                  <td>{{supplier_5.year8_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-9 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year9_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year9_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year9_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year9_price}}
+                  </td>
+                  <td>{{supplier_5.year9_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Year-10 Price
                   </td>
-                  <td>sodales
+                  <td>{{supplier_1.year10_price}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier_2.year10_price}}
                   </td>
-                  <td>in
+                  <td>{{supplier_3.year10_price}}
                   </td>
-                  <td>libero
+                  <td>{{supplier_4.year10_price}}
+                  </td>
+                  <td>{{supplier_5.year10_price}}
                   </td>
                 </tr>
                 <tr>
@@ -186,6 +222,8 @@
                   <td>ligula
                   </td>
                   <td>in
+                  </td>
+                  <td>libero
                   </td>
                   <td>libero
                   </td>
@@ -202,225 +240,265 @@
                   </td>
                   <td>libero
                   </td>
+                  <td>libero
+                  </td>
                 </tr>
 
                 <tr>
                   <td>Resin MOQ
                   </td>
-                  <td>Lorem
+                  <td>{{supplier_1.resin_moq}}
                   </td>
-                  <td>ipsum
+                  <td>{{supplier_2.resin_moq}}
                   </td>
-                  <td>dolor
+                  <td>{{supplier_3.resin_moq}}
                   </td>
-                  <td>sit
+                  <td>{{supplier_4.resin_moq}}
+                  </td>
+                  <td>{{supplier_5.resin_moq}}
                   </td>
                 </tr>
                 <tr>
                   <td>Resin Price
                   </td>
-                  <td>amet
+                  <td>{{supplier_1.resin_price}}
                   </td>
-                  <td>consectetur
+                  <td>{{supplier_2.resin_price}}
                   </td>
-                  <td>adipiscing
+                  <td>{{supplier_3.resin_price}}
                   </td>
-                  <td>elit
+                  <td>{{supplier_4.resin_price}}
+                  </td>
+                  <td>{{supplier_5.resin_price}}
                   </td>
                 </tr>
                 <tr>
                   <td>Cavity
                   </td>
-                  <td>Integer
+                  <td>{{supplier_1.cavity}}
                   </td>
-                  <td>nec
+                  <td>{{supplier_2.cavity}}
                   </td>
-                  <td>odio
+                  <td>{{supplier_3.cavity}}
                   </td>
-                  <td>Praesent
+                  <td>{{supplier_4.cavity}}
+                  </td>
+                  <td>{{supplier_5.cavity}}
                   </td>
                 </tr>
                 <tr>
                   <td>Machine Rate
                   </td>
-                  <td>libero
+                  <td>{{supplier_1.machine_rate}}
                   </td>
-                  <td>Sed
+                  <td>{{supplier_2.machine_rate}}
                   </td>
-                  <td>cursus
+                  <td>{{supplier_3.machine_rate}}
                   </td>
-                  <td>ante
+                  <td>{{supplier_4.machine_rate}}
+                  </td>
+                  <td>{{supplier_5.machine_rate}}
                   </td>
                 </tr>
                 <tr>
                   <td>Cycle Time
                   </td>
-                  <td>dapibus
+                  <td>{{supplier_1.cycle_time}}
                   </td>
-                  <td>diam
+                  <td>{{supplier_2.cycle_time}}
                   </td>
-                  <td>Sed
+                  <td>{{supplier_3.cycle_time}}
                   </td>
-                  <td>nisi
+                  <td>{{supplier_4.cycle_time}}
+                  </td>
+                  <td>{{supplier_5.cycle_time}}
                   </td>
                 </tr>
                 <tr>
                   <td>Second Material Cost
                   </td>
-                  <td>Nulla
+                  <td>{{supplier_1.secpro_mtl_cost}}
                   </td>
-                  <td>quis
+                  <td>{{supplier_2.secpro_mtl_cost}}
                   </td>
-                  <td>sem
+                  <td>{{supplier_3.secpro_mtl_cost}}
                   </td>
-                  <td>at
+                  <td>{{supplier_4.secpro_mtl_cost}}
+                  </td>
+                  <td>{{supplier_5.secpro_mtl_cost}}
                   </td>
                 </tr>
                 <tr>
                   <td>Second Process Cost
                   </td>
-                  <td>nibh
+                  <td>{{supplier_1.secpro_process_cost}}
                   </td>
-                  <td>elementum
+                  <td>{{supplier_2.secpro_process_cost}}
                   </td>
-                  <td>imperdiet
+                  <td>{{supplier_3.secpro_process_cost}}
                   </td>
-                  <td>Duis
+                  <td>{{supplier_4.secpro_process_cost}}
+                  </td>
+                  <td>{{supplier_5.secpro_process_cost}}
                   </td>
                 </tr>
                 <tr>
                   <td>Part MOQ
                   </td>
-                  <td>sagittis
+                  <td>{{supplier_1.part_moq}}
                   </td>
-                  <td>ipsum
+                  <td>{{supplier_2.part_moq}}
                   </td>
-                  <td>Praesent
+                  <td>{{supplier_3.part_moq}}
                   </td>
-                  <td>mauris
+                  <td>{{supplier_4.part_moq}}
+                  </td>
+                  <td>{{supplier_5.part_moq}}
                   </td>
                 </tr>
                 <tr>
                   <td>Packaging Concept
                   </td>
-                  <td>Fusce
+                  <td>{{supplier_1.packaging_concept}}
                   </td>
-                  <td>nec
+                  <td>{{supplier_2.packaging_concept}}
                   </td>
-                  <td>tellus
+                  <td>{{supplier_3.packaging_concept}}
                   </td>
-                  <td>sed
+                  <td>{{supplier_4.packaging_concept}}
+                  </td>
+                  <td>{{supplier_5.packaging_concept}}
                   </td>
                 </tr>
                 <tr>
                   <td>Packaging Cost
                   </td>
-                  <td>augue
+                  <td>{{supplier_1.packaging_cost}}
                   </td>
-                  <td>semper
+                  <td>{{supplier_2.packaging_cost}}
                   </td>
-                  <td>porta
+                  <td>{{supplier_3.packaging_cost}}
                   </td>
-                  <td>Mauris
+                  <td>{{supplier_4.packaging_cost}}
                   </td>
-                </tr>
-                <tr>
-                  <td>Injection Tooling Cost
-                  </td>
-                  <td>massa
-                  </td>
-                  <td>Vestibulum
-                  </td>
-                  <td>lacinia
-                  </td>
-                  <td>arcu
+                  <td>{{supplier_5.packaging_cost}}
                   </td>
                 </tr>
                 <tr>
-                  <td>Injection Tooling Lifetime
+                  <td>Inject Tooling Cost
                   </td>
-                  <td>eget
+                  <td>{{supplier_1.injection_tooling_cost}}
                   </td>
-                  <td>nulla
+                  <td>{{supplier_2.injection_tooling_cost}}
                   </td>
-                  <td>Class
+                  <td>{{supplier_3.injection_tooling_cost}}
                   </td>
-                  <td>aptent
+                  <td>{{supplier_4.injection_tooling_cost}}
+                  </td>
+                  <td>{{supplier_5.injection_tooling_cost}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Inject Tooling Lifetime
+                  </td>
+                  <td>{{supplier_1.tooling_lifetime}}
+                  </td>
+                  <td>{{supplier_2.tooling_lifetime}}
+                  </td>
+                  <td>{{supplier_3.tooling_lifetime}}
+                  </td>
+                  <td>{{supplier_4.tooling_lifetime}}
+                  </td>
+                  <td>{{supplier_5.tooling_lifetime}}
                   </td>
                 </tr>
                 <tr>
                   <td>Extra Tooling Cost
                   </td>
-                  <td>massa
+                  <td>{{supplier_1.extra_tooling_cost}}
                   </td>
-                  <td>Vestibulum
+                  <td>{{supplier_2.extra_tooling_cost}}
                   </td>
-                  <td>lacinia
+                  <td>{{supplier_3.extra_tooling_cost}}
                   </td>
-                  <td>arcu
+                  <td>{{supplier_4.extra_tooling_cost}}
+                  </td>
+                  <td>{{supplier_5.extra_tooling_cost}}
                   </td>
                 </tr>
+
                 <tr>
                   <td>Extra Investment Cost
                   </td>
-                  <td>massa
+                  <td>{{supplier_1.extra_invest_cost}}
                   </td>
-                  <td>Vestibulum
+                  <td>{{supplier_2.extra_invest_cost}}
                   </td>
-                  <td>lacinia
+                  <td>{{supplier_3.extra_invest_cost}}
                   </td>
-                  <td>arcu
+                  <td>{{supplier_4.extra_invest_cost}}
+                  </td>
+                  <td>{{supplier_5.extra_invest_cost}}
                   </td>
                 </tr>
+
                 <tr>
                   <td>3D Measure
                   </td>
-                  <td>taciti
+                  <td>{{supplier_1.measuring_cost}}
                   </td>
-                  <td>sociosqu
+                  <td>{{supplier_2.measuring_cost}}
                   </td>
-                  <td>ad
+                  <td>{{supplier_3.measuring_cost}}
                   </td>
-                  <td>litora
+                  <td>{{supplier_4.measuring_cost}}
+                  </td>
+                  <td>{{supplier_5.measuring_cost}}
                   </td>
                 </tr>
                 
                 <tr class="table-info">
                   <td>Total Investment
                   </td>
-                  <td>sodales
+                  <td>building
                   </td>
-                  <td>ligula
+                  <td>building
                   </td>
-                  <td>in
+                  <td>building
                   </td>
-                  <td>libero
+                  <td>building
+                  </td>
+                  <td>building
                   </td>
                 </tr>
                 
                 <tr>
                   <td>Quick Saving
                   </td>
-                  <td>sodales
+                  <td>{{supplier1QuickSaving}}
                   </td>
-                  <td>ligula
+                  <td>{{supplier2QuickSaving}}
                   </td>
-                  <td>in
+                  <td>{{supplier3QuickSaving}}
                   </td>
-                  <td>libero
+                  <td>{{supplier4QuickSaving}}
+                  </td>
+                  <td>{{supplier5QuickSaving}}
                   </td>
                 </tr>
 
                 <tr class="table-info">
                   <td>Total PVO
                   </td>
-                  <td>sodales
+                  <td>building
                   </td>
-                  <td>ligula
+                  <td>building
                   </td>
-                  <td>in
+                  <td>building
                   </td>
-                  <td>libero
+                  <td>building
+                  </td>
+                  <td>building
                   </td>
                 </tr>
 

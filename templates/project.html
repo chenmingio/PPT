@@ -5,8 +5,11 @@
 {% set JumboBtnLink = "/project/" + project_no + "/info/read" %}
 
 {% if is_supplier %}
-{% set styleToggle = "style='display: none'" %}
 {% set displayToggleS = "d-none" %}
+{% endif %}
+
+{% if is_purchasing %}
+{% set displayToggleP = "d-none" %}
 {% endif %}
 
 {% block content %}
@@ -22,9 +25,9 @@
 
                         <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part1_id }}/read" role="button">Strategy
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary {{ displayToggle }}" href="/quotation/{{ part1_id }}/read" role="button">Quotation
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleP }}" href="/quotation/{{ part1_id }}/read" role="button">Quotation
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href=# role="button">Price
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/compare/{{ part1_id }}" role="button">Price
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
                         </a>
@@ -36,7 +39,6 @@
               </div>
             </div>
 
-
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
                   <img class="card-img-top" data-src="used for JS" alt="put part image/drawing here" style="height: 225px; width: 100%; display: block;" src="http://www.myhellalights.com/logo.jpg" data-holder-rendered="true">
@@ -46,17 +48,17 @@
                   <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
 
-                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part2_id }}/read" role="button">Strategy
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part2_id }}/read" role="button">Strategy
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleP }}" href="/quotation/{{ part2_id }}/read" role="button">Quotation
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/compare/{{ part2_id }}" role="button">Price
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
                         </a>
                     </div>
-                    <small class="text-muted">9 days
-                    </small>
                   </div>
                 </div>
               </div>
@@ -71,22 +73,21 @@
                   <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
 
-                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part3_id }}/read" role="button">Strategy
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part3_id }}/read" role="button">Strategy
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleP }}" href="/quotation/{{ part3_id }}/read" role="button">Quotation
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/compare/{{ part3_id }}" role="button">Price
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
                         </a>
                     </div>
-                    <small class="text-muted">9 days
-                    </small>
                   </div>
                 </div>
               </div>
             </div>
-
 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
@@ -97,22 +98,21 @@
                   <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
 
-                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part1_id }}/read" role="button">Strategy
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part4_id }}/read" role="button">Strategy
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleP }}" href="/quotation/{{ part4_id }}/read" role="button">Quotation
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/compare/{{ part4_id }}" role="button">Price
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
                         </a>
                     </div>
-                    <small class="text-muted">9 days
-                    </small>
                   </div>
                 </div>
               </div>
             </div>
-
 
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
@@ -123,21 +123,20 @@
                   <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
 
-                        <a class="btn btn-sm btn-outline-secondary" href="/part/{{ part5_id }}/read" role="button">Strategy
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/part/{{ part5_id }}/read" role="button">Strategy
                         </a>
-                        <a class="btn btn-sm btn-outline-secondary" href=# role="button">Price
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleP }}" href="/quotation/{{ part5_id }}/read" role="button">Quotation
+                        </a>
+                        <a class="btn btn-sm btn-outline-secondary {{ displayToggleS }}" href="/compare/{{ part5_id }}" role="button">Price
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Technik
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href=# role="button">Logistic
                         </a>
                     </div>
-                    <small class="text-muted">9 days
-                    </small>
                   </div>
                 </div>
               </div>
             </div>
 
-          </div>
 {% endblock %}

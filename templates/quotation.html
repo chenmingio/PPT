@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
-{% set JumboText_h1 = 'project_name' + " Overview" %}
-{% set JumboText_p1 = 'is read' %}
-{% set JumboText_p2 = None %}
+{% set JumboText_h1 = "Quotation" %}
+{% set btnGroupToggle = "d-none" %}
 
 {% if is_create %}
 {% set valueToggle = "placeholder" %}
 {% set readonlyToggle = "" %}
 {% set btnText = "create" %}
-{% set btnDirection = "/quotation/" + part_id + "/new/save" %}
+{% set btnDirection = "/quotation/" + part_id + "/save" %}
 {% endif %}
 
 
@@ -16,14 +15,14 @@
 {% set valueToggle = "placeholder" %}
 {% set readonlyToggle = "readonly" %}
 {% set btnText = "click to change" %}
-{% set btnDirection = "/quotation/" + part_id + "/" + quotation_id + "/update" %}
+{% set btnDirection = "/quotation/" + part_id + "/update" %}
 {% endif %}
 
 {% if is_update %}
 {% set valueToggle = "value" %}
 {% set readonlyToggle = "" %}
 {% set btnText = "confirm update" %}
-{% set btnDirection = "/quotation/" + part_id + "/" + quotation_id + "/save" %}
+{% set btnDirection = "/quotation/" + part_id + "/save" %}
 {% endif %}
 
 {% block content %}
@@ -34,13 +33,18 @@
         <legend>Background</legend>
 
         <div class="form-group col-md-3">
-      <label for="part_id">Part ID</label>
-      <input type="text" class="form-control" name="part_id" value={{ part_id }} readonly>
+            <label for="part_id">Part ID</label>
+            <input type="text" class="form-control" name="part_id" value="{{ part_id }}" readonly>
         </div>
 
         <div class="form-group col-md-3">
             <label for="quotation_id">Quotation ID</label>
-            <input type="text" class="form-control" name="quotation_id" value={{ quotation_id }} readonly>
+            <input type="text" class="form-control" name="quotation_id" value="{{ quotation_id }}" readonly>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="quotation_date">Quotation Date</label>
+            <input type="text" class="form-control" name="quotation_date" value="{{ quotation_date }}" readonly>
         </div>
 
 
