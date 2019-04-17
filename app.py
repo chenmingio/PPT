@@ -233,7 +233,7 @@ def part(part_id, crud):
             lifetime = 0
             for year in range(1,11):
                 if fetchResult[f'year{year}_volume'] != '0':
-                    total_volume += int(fetchResult[f'year{year}_volume'])
+                    total_volume += float(fetchResult[f'year{year}_volume'])
                     lifetime += 1
 
             average_volume = total_volume / lifetime
